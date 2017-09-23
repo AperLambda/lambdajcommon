@@ -13,11 +13,13 @@ public final class LambdaSystem
 {
     private LambdaSystem() {}
 
-    public static OS getOS() {
+    public static OS getOS()
+    {
         return OS.getCurrentPlatform();
     }
 
-    public static String getUserDirectoryStr() {
+    public static String getUserDirectoryStr()
+    {
         return System.getProperty("user.home");
     }
 }

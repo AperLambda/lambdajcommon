@@ -25,12 +25,14 @@ public enum OS implements Nameable
     private String   prettyName;
     private String[] designations;
 
-    OS(String prettyName, String... designations) {
+    OS(String prettyName, String... designations)
+    {
         this.prettyName = prettyName;
         this.designations = designations;
     }
 
-    public static OS getCurrentPlatform() {
+    public static OS getCurrentPlatform()
+    {
         String osName = System.getProperty("os.name").toLowerCase();
         for (OS os : values())
         {
@@ -44,7 +46,8 @@ public enum OS implements Nameable
     }
 
     @Override
-    public String getName() {
+    public String getName()
+    {
         return prettyName;
     }
 }

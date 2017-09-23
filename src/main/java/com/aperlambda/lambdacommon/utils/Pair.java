@@ -18,10 +18,11 @@ import java.util.Map;
 
 public final class Pair<K, V> implements Serializable
 {
-    private K _key;
+    private K           _key;
     private Optional<V> _value;
 
-    public Pair(@NotNull K key, V value) {
+    public Pair(@NotNull K key, V value)
+    {
         _key = key;
         _value = Optional.ofNullable(value);
     }
@@ -32,7 +33,8 @@ public final class Pair<K, V> implements Serializable
      * @param entry The Entry.
      * @return A new pair.
      */
-    public static <K, V> Pair<K, V> fromEntry(Map.Entry<K, V> entry) {
+    public static <K, V> Pair<K, V> fromEntry(Map.Entry<K, V> entry)
+    {
         return new Pair<>(entry.getKey(), entry.getValue());
     }
 
@@ -42,7 +44,8 @@ public final class Pair<K, V> implements Serializable
      * @param javaFXPair The JavaFX's pair.
      * @return A new pair.
      */
-    public static <K, V> Pair<K, V> fromJavaFX(javafx.util.Pair<K, V> javaFXPair) {
+    public static <K, V> Pair<K, V> fromJavaFX(javafx.util.Pair<K, V> javaFXPair)
+    {
         return new Pair<>(javaFXPair.getKey(), javaFXPair.getValue());
     }
 
@@ -52,7 +55,8 @@ public final class Pair<K, V> implements Serializable
      * @param map The Map.
      * @return A new pair's list.
      */
-    public static <K, V> List<Pair<K, V>> newListFromMap(Map<K, V> map) {
+    public static <K, V> List<Pair<K, V>> newListFromMap(Map<K, V> map)
+    {
         List<Pair<K, V>> list = new ArrayList<>();
         map.forEach((key, value) -> list.add(new Pair<>(key, value)));
         return list;
@@ -63,7 +67,8 @@ public final class Pair<K, V> implements Serializable
      *
      * @return Key for this pair.
      */
-    public K getKey() {
+    public K getKey()
+    {
         return _key;
     }
 
@@ -72,33 +77,37 @@ public final class Pair<K, V> implements Serializable
      *
      * @return Value for this pair.
      */
-    public Optional<V> getValue() {
+    public Optional<V> getValue()
+    {
         return _value;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(Object o)
+    {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
         Pair<?, ?> pair = (Pair<?, ?>) o;
 
         return (_key != null ? _key.equals(pair._key) : pair._key == null) &&
-                (_value != null ? _value.equals(pair._value) : pair._value == null);
+               (_value != null ? _value.equals(pair._value) : pair._value == null);
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         int result = _key != null ? _key.hashCode() : 0;
         result = 31 * result + (_value != null ? _value.hashCode() : 0);
         return result;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "Pair{" +
-                "key: " + _key +
-                ", value: " + _value +
-                '}';
+               "key: " + _key +
+               ", value: " + _value +
+               '}';
     }
 }
