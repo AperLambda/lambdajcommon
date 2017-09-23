@@ -22,6 +22,7 @@ public final class OptionalString extends Optional<String>
         super(value);
     }
 
+    @SuppressWarnings("unchecked")
     public static OptionalString empty() {
         return EMPTY;
     }

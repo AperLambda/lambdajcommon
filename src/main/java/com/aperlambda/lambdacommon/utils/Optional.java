@@ -108,6 +108,24 @@ public class Optional<X> implements Serializable
             consumer.accept(_value);
     }
 
+    /**
+     * If a value is present, performs the given action with the value,
+     * otherwise performs the given empty-based action.
+     *
+     * @param action      the action to be performed, if a value is present
+     * @param emptyAction the empty-based action to be performed, if no value is
+     *                    present
+     * @throws NullPointerException if a value is present and the given action
+     *                              is {@code null}, or no value is present and the given empty-based
+     *                              action is {@code null}.
+     */
+    public void ifPresentOrElse(Consumer<? super X> action, Runnable emptyAction) {
+        if (_value != null)
+            action.accept(_value);
+        else
+            emptyAction.run();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
