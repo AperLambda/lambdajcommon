@@ -10,6 +10,7 @@
 package com.aperlambda.lambdacommon.system;
 
 import com.aperlambda.lambdacommon.utils.Nameable;
+import org.jetbrains.annotations.NotNull;
 
 public enum OS implements Nameable
 {
@@ -45,6 +46,7 @@ public enum OS implements Nameable
         return UNKNOWN;
     }
 
+    @NotNull
     @Override
     public String getName()
     {
