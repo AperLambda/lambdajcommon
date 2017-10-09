@@ -9,5 +9,8 @@
 
 package com.aperlambda.lambdacommon.documents;
 
-public interface Document
-{}
+import com.aperlambda.lambdacommon.utils.Serializable;
+
+public interface Document<T> extends Serializable<T>
+{
+}
