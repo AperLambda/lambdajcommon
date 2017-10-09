@@ -15,7 +15,10 @@ import org.jetbrains.annotations.NotNull;
 public interface Serializable
 {
     @NotNull
-    String serialize();
+    default String serialize()
+    {
+        return toJson().toString();
+    }
 
     @NotNull
     JsonObject toJson();
