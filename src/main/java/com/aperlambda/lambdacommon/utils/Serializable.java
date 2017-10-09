@@ -12,15 +12,10 @@ package com.aperlambda.lambdacommon.utils;
 import com.google.gson.JsonObject;
 import org.jetbrains.annotations.NotNull;
 
-public interface Serializable<T>
+public interface Serializable
 {
-    default String serializeToString()
-    {
-        return serialize().toString();
-    }
-
     @NotNull
-    T serialize();
+    String serialize();
 
     @NotNull
     JsonObject toJson();
