@@ -12,51 +12,38 @@ package com.aperlambda.lambdacommon;
 import com.google.gson.JsonObject;
 import org.jetbrains.annotations.NotNull;
 
-public class Position2D implements Position
+public class Position3D extends Position2D
 {
-    private int x;
-    private int y;
+    private int z;
 
-    public Position2D(int x, int y)
+    public Position3D(int x, int y, int z)
     {
-        this.x = x;
-        this.y = y;
+        super(x, y);
+        this.z = z;
     }
 
-    public int getX()
+    public int getZ()
     {
-        return x;
+        return z;
     }
 
-    public void setX(int x)
+    public void setZ(int z)
     {
-        this.x = x;
-    }
-
-    public int getY()
-    {
-        return y;
-    }
-
-    public void setY(int y)
-    {
-        this.y = y;
+        this.z = z;
     }
 
     @Override
     public int getDimension()
     {
-        return 2;
+        return 3;
     }
 
     @NotNull
     @Override
     public JsonObject toJson()
     {
-        JsonObject json = new JsonObject();
-        json.addProperty("dimension", getDimension());
-        json.addProperty("x", x);
-        json.addProperty("y", y);
+        JsonObject json = super.toJson();
+        json.addProperty("z", z);
         return json;
     }
 
@@ -65,17 +52,18 @@ public class Position2D implements Position
     {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
 
-        Position2D that = (Position2D) o;
+        Position3D that = (Position3D) o;
 
-        return x == that.x && y == that.y;
+        return z == that.z;
     }
 
     @Override
     public int hashCode()
     {
-        int result = x;
-        result = 31 * result + y;
+        int result = super.hashCode();
+        result = 31 * result + z;
         return result;
     }
 }
