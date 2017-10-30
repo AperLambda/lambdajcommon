@@ -9,6 +9,8 @@
 
 package com.aperlambda.lambdacommon.utils;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.function.Consumer;
 
 public final class OptionalString extends Optional<String>
@@ -25,16 +27,19 @@ public final class OptionalString extends Optional<String>
     }
 
     @SuppressWarnings("unchecked")
+    @NotNull
     public static OptionalString empty()
     {
         return EMPTY;
     }
 
-    public static OptionalString of(String something)
+    @NotNull
+    public static OptionalString of(@NotNull String something)
     {
         return new OptionalString(something);
     }
 
+    @NotNull
     public static OptionalString ofNullable(String somethingNullable)
     {
         return somethingNullable == null ? empty() : of(somethingNullable);
@@ -47,7 +52,7 @@ public final class OptionalString extends Optional<String>
     }
 
     @Override
-    public void ifPresent(Consumer<? super String> consumer)
+    public void ifPresent(@NotNull Consumer<? super String> consumer)
     {
         if (isPresent())
             super.ifPresent(consumer);

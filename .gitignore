@@ -1,6 +1,7 @@
 #
 # AperLambda ignore file
 #
+# v0.1
 
 # JetBrains
 .idea/
@@ -10,6 +11,13 @@ out/
 ## CLion
 cmake-build-debug/
 cmake-build-release/
+## Eclipse
+eclipse
+*.launch
+.settings
+.metadata
+.classpath
+.project
 
 # Build system
 ## Cargo
@@ -27,4 +35,6 @@ package-lock.json
 .vscode/
 
 # Common
+bin/
 build/
+run/

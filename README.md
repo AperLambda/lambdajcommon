@@ -18,3 +18,19 @@
 [![npm](https://img.shields.io/npm/dt/lambdacommonjs.svg?style=flat-square)](https://www.npmjs.com/package/lambdacommonjs/)
 
 A library written in Java 8 with common features.
+
+## Adding λJcommon to your project
+
+It's very simple!
+
+### Gradle
+
+In your repositories declaration add:
+```groovy
+maven { url "https://lambdaurora.github.io/repositories" }
+```
+
+And in your dependencies add:
+```groovy
+compile 'com.aperlambda:lambdajcommon:1.0.1'
+```

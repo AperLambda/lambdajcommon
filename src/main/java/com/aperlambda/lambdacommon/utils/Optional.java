@@ -9,10 +9,13 @@
 
 package com.aperlambda.lambdacommon.utils;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.Serializable;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class Optional<X> implements Serializable
@@ -32,6 +35,7 @@ public class Optional<X> implements Serializable
         _value = Objects.requireNonNull(value);
     }
 
+    @NotNull
     public static <T> Optional<T> empty()
     {
         @SuppressWarnings("unchecked")
@@ -39,11 +43,13 @@ public class Optional<X> implements Serializable
         return OwO;
     }
 
-    public static <T> Optional<T> of(T something)
+    @NotNull
+    public static <T> Optional<T> of(@NotNull T something)
     {
         return new Optional<>(something);
     }
 
+    @NotNull
     public static <T> Optional<T> ofNullable(T somethingNullable)
     {
         return somethingNullable == null ? empty() : of(somethingNullable);
@@ -89,7 +95,7 @@ public class Optional<X> implements Serializable
      * @throws NullPointerException If value is not present and {@code other} is
      *                              null.
      */
-    public X orElseGet(Supplier<? extends X> other)
+    public X getOrElseGet(@NotNull Supplier<? extends X> other)
     {
         return _value != null ? _value : other.get();
     }
@@ -106,7 +112,7 @@ public class Optional<X> implements Serializable
      * @throws NullPointerException If no value is present and the exception
      *                              supplying function is {@code null}.
      */
-    public <T extends Throwable> X orElseThrow(Supplier<? extends T> exceptionSupplier) throws T
+    public <T extends Throwable> X getOrElseThrow(@NotNull Supplier<? extends T> exceptionSupplier) throws T
     {
         if (_value != null)
             return _value;
@@ -132,7 +138,7 @@ public class Optional<X> implements Serializable
      * @throws NullPointerException If value is present and {@code consumer} is
      *                              null.
      */
-    public void ifPresent(Consumer<? super X> consumer)
+    public void ifPresent(@NotNull Consumer<? super X> consumer)
     {
         if (_value != null)
             consumer.accept(_value);
@@ -149,12 +155,53 @@ public class Optional<X> implements Serializable
      *                              is {@code null}, or no value is present and the given empty-based
      *                              action is {@code null}.
      */
-    public void ifPresentOrElse(Consumer<? super X> action, Runnable emptyAction)
+    public void ifPresentOrElse(@NotNull Consumer<? super X> action, @NotNull Runnable emptyAction)
     {
         if (_value != null)
             action.accept(_value);
         else
             emptyAction.run();
+    }
+
+    /**
+     * If a value is present, apply the provided mapping function to it,
+     * and if the result is non-null, return an {@code Optional} describing the
+     * result.  Otherwise return an empty {@code Optional}.
+     *
+     * @param <N> The type of the result of the mapping function.
+     * @param mapper A mapping function to apply to the value, if present.
+     * @return An {@code Optional} describing the result of applying a mapping
+     * function to the value of this {@code Optional}, if a value is present,
+     * otherwise an empty {@code Optional}.
+     * @throws NullPointerException If the mapping function is null.
+     */
+    @NotNull
+    public <N> Optional<N> map(@NotNull Function<? super X, ? extends N> mapper)
+    {
+        Objects.requireNonNull(mapper);
+        if (isPresent())
+            return ofNullable(mapper.apply(_value));
+        else return empty();
+    }
+
+    /**
+     * If a value is present, apply the provided mapping function to it,
+     * and if the result is non-null, return an {@code OptionalString} describing the
+     * result. Otherwise return an empty {@code OptionalString}.
+     *
+     * @param mapper A mapping function to apply to the value, if present.
+     * @return An {@code OptionalString} describing the result of applying a mapping
+     * function to the value of this {@code Optional}, if a value is present,
+     * otherwise an empty{@code Optional}.
+     * @throws NullPointerException If the mapping function is null.
+     */
+    @NotNull
+    public OptionalString mapString(@NotNull Function<? super X, ? extends String> mapper)
+    {
+        Objects.requireNonNull(mapper);
+        if (isPresent())
+            return OptionalString.ofNullable(mapper.apply(_value));
+        else return OptionalString.empty();
     }
 
     @Override
