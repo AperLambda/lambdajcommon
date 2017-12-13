@@ -9,34 +9,36 @@
 
 package com.aperlambda.lambdacommon.resources;
 
+import com.aperlambda.lambdacommon.utils.Nameable;
 import com.google.gson.*;
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Type;
 
 /**
  * Represents a resource location.
  */
-public class ResourceLocation
+public class ResourceName implements Nameable
 {
     protected final String domain;
-    protected final String path;
+    protected final String name;
 
-    public ResourceLocation(String resource)
+    public ResourceName(String resource)
     {
         String[] res = getInTwoParts(resource);
         domain = res[0];
-        path = res[1];
+        name = res[1];
     }
 
-    public ResourceLocation(String domain, String path)
+    public ResourceName(String domain, String name)
     {
         this.domain = domain;
-        this.path = path;
+        this.name = name;
     }
 
-    public ResourceLocation(ResourceLocation location, String path)
+    public ResourceName(ResourceName resourceName, String name)
     {
-        this(location.domain, mergePath(location.path, path));
+        this(resourceName.domain, mergePath(resourceName.name, name));
     }
 
     private static String mergePath(String parent, String child)
@@ -53,7 +55,7 @@ public class ResourceLocation
     {
         int separatorIndex = o.indexOf(':');
         if (separatorIndex <= 0)
-            throw new IllegalArgumentException("The given string isn't a valid ResourceLocation!");
+            throw new IllegalArgumentException("The given string isn't a valid resource name!");
         return new String[]{o.substring(0, separatorIndex), o.substring(separatorIndex + 1)};
     }
 
@@ -62,20 +64,21 @@ public class ResourceLocation
         return domain;
     }
 
-    public String getPath()
+    @Override
+    public @NotNull String getName()
     {
-        return path;
+        return name;
     }
 
-    public ResourceLocation sub(String path)
+    public ResourceName sub(String path)
     {
-        return new ResourceLocation(this, path);
+        return new ResourceName(this, path);
     }
 
     @Override
     public String toString()
     {
-        return domain + ':' + path;
+        return domain + ':' + name;
     }
 
     @Override
@@ -84,35 +87,35 @@ public class ResourceLocation
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ResourceLocation that = (ResourceLocation) o;
+        ResourceName that = (ResourceName) o;
 
         return (domain != null ? domain.equals(that.domain) : that.domain == null) &&
-               (path != null ? path.equals(that.path) : that.path == null);
+               (name != null ? name.equals(that.name) : that.name == null);
     }
 
     @Override
     public int hashCode()
     {
         int result = domain != null ? domain.hashCode() : 0;
-        result = 31 * result + (path != null ? path.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
     }
 
-    public static class Serializer implements JsonDeserializer<ResourceLocation>, JsonSerializer<ResourceLocation>
+    public static class Serializer implements JsonDeserializer<ResourceName>, JsonSerializer<ResourceName>
     {
-        public ResourceLocation deserialize(JsonElement json, Type type, JsonDeserializationContext context) throws
+        public ResourceName deserialize(JsonElement json, Type type, JsonDeserializationContext context) throws
                                                                                                              JsonParseException
         {
             if (json.isJsonPrimitive())
-                return new ResourceLocation(json.getAsString());
+                return new ResourceName(json.getAsString());
             else
                 throw new JsonSyntaxException(
-                        "Expected resource location to be a string, was " + json.getClass().getSimpleName());
+                        "Expected resource name to be a string, was " + json.getClass().getSimpleName());
         }
 
-        public JsonElement serialize(ResourceLocation resourceLocation, Type type, JsonSerializationContext context)
+        public JsonElement serialize(ResourceName resourceName, Type type, JsonSerializationContext context)
         {
-            return new JsonPrimitive(resourceLocation.toString());
+            return new JsonPrimitive(resourceName.toString());
         }
     }
 }
