@@ -9,6 +9,8 @@
 
 module com.aperlambda.lambdacommon {
     exports com.aperlambda.lambdacommon.documents;
+    exports com.aperlambda.lambdacommon.resources;
     exports com.aperlambda.lambdacommon.system;
     exports com.aperlambda.lambdacommon.utils;
+    exports com.aperlambda.lambdacommon.utils.function;
 }
