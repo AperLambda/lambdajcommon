@@ -30,7 +30,7 @@ public class ResourceName implements Nameable
         name = res[1];
     }
 
-    public ResourceName(String domain, String name)
+    public ResourceName(String domain, @NotNull String name)
     {
         this.domain = domain;
         this.name = name;
@@ -90,7 +90,7 @@ public class ResourceName implements Nameable
         ResourceName that = (ResourceName) o;
 
         return (domain != null ? domain.equals(that.domain) : that.domain == null) &&
-               (name != null ? name.equals(that.name) : that.name == null);
+                (name != null ? name.equals(that.name) : that.name == null);
     }
 
     @Override
@@ -101,10 +101,13 @@ public class ResourceName implements Nameable
         return result;
     }
 
+    public static final ResourceName RESOURCE_INVALID   = new ResourceName("common", "invalid");
+    public static final ResourceName RESOURCE_NOT_FOUND = new ResourceName("common", "404");
+
     public static class Serializer implements JsonDeserializer<ResourceName>, JsonSerializer<ResourceName>
     {
         public ResourceName deserialize(JsonElement json, Type type, JsonDeserializationContext context) throws
-                                                                                                             JsonParseException
+                                                                                                         JsonParseException
         {
             if (json.isJsonPrimitive())
                 return new ResourceName(json.getAsString());

@@ -9,10 +9,17 @@
 
 package com.aperlambda.lambdacommon;
 
+import com.aperlambda.lambdacommon.resources.ResourceName;
+
 import java.awt.*;
 
 public class LambdaConstants
 {
+    /*
+        Resources
+     */
+    public static final ResourceName RESOURCE_INVALID = ResourceName.RESOURCE_INVALID;
+    public static final ResourceName RESOURCE_NOT_FOUND = ResourceName.RESOURCE_NOT_FOUND;
     /*
         Colors
      */
