@@ -32,5 +32,5 @@ maven { url "https://lambdaurora.github.io/repositories" }
 
 And in your dependencies add:
 ```groovy
-compile 'com.aperlambda:lambdajcommon:1.1.0'
+compile 'com.aperlambda:lambdajcommon:1.1.1'
 ```

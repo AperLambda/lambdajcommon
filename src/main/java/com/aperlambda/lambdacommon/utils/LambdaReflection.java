@@ -86,7 +86,7 @@ public class LambdaReflection
      * @param field  The specified field.
      * @return The optional value.
      */
-    public static @Nullable Object getFieldValue(@NotNull Object object, @NotNull Field field)
+    public static @Nullable Object getFieldValue(@Nullable Object object, @NotNull Field field)
     {
         if (!field.isAccessible())
             field.setAccessible(true);
@@ -101,6 +101,29 @@ public class LambdaReflection
         }
     }
 
+    /**
+     * Gets the value of the specified field in the instance of the specified object.
+     *
+     * @param object       The specified object.
+     * @param field        The specified field.
+     * @param defaultValue The default value if cannot access to the field's value.
+     * @return The optional value.
+     */
+    @SuppressWarnings("unchecked")
+    public static <V> @Nullable V getFieldValue(@Nullable Object object, @NotNull Field field, V defaultValue)
+    {
+        if (!field.isAccessible())
+            field.setAccessible(true);
+        try
+        {
+            return (V) field.get(object);
+        }
+        catch (IllegalAccessException e)
+        {
+            return defaultValue;
+        }
+    }
+
     /*
         Methods
      */
@@ -111,9 +134,10 @@ public class LambdaReflection
 
     /**
      * Gets the method by name of the specified class.
-     * @param clazz The specified class.
-     * @param name The specified name of the method.
-     * @param declared Whether the method is declared or not.
+     *
+     * @param clazz          The specified class.
+     * @param name           The specified name of the method.
+     * @param declared       Whether the method is declared or not.
      * @param parameterTypes The parameters of the method.
      * @return The optional method.
      */
@@ -133,12 +157,13 @@ public class LambdaReflection
 
     /**
      * Invokes the specified method with the specified instance of the object.
-     * @param object The specified object.
-     * @param method The specified method to invoke.
+     *
+     * @param object    The specified object.
+     * @param method    The specified method to invoke.
      * @param arguments The arguments.
      * @return The result of the method, returns null if the method returns void.
      */
-    public static @Nullable Object invokeMethod(@NotNull Object object, @NotNull Method method, Object... arguments)
+    public static @Nullable Object invokeMethod(@Nullable Object object, @NotNull Method method, Object... arguments)
     {
         try
         {
