@@ -7,7 +7,7 @@
  * see the LICENSE file.
  */
 
-package com.aperlambda.lambdacommon.utils.function;
+package org.aperlambda.lambdacommon.utils.function;
 
 @FunctionalInterface
 public interface PairPredicate<X, Y>

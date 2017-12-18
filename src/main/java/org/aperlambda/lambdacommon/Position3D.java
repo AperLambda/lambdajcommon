@@ -7,7 +7,7 @@
  * see the LICENSE file.
  */
 
-package com.aperlambda.lambdacommon;
+package org.aperlambda.lambdacommon;
 
 import com.google.gson.JsonObject;
 import org.jetbrains.annotations.NotNull;

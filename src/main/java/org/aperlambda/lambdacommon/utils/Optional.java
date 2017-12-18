@@ -7,7 +7,7 @@
  * see the LICENSE file.
  */
 
-package com.aperlambda.lambdacommon.utils;
+package org.aperlambda.lambdacommon.utils;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -61,7 +61,7 @@ public class Optional<X> implements Serializable
      *
      * @return The non-null value held by this {@code Optional}.
      * @throws NoSuchElementException If there is no value present.
-     * @see com.aperlambda.lambdacommon.utils.Optional#isPresent()
+     * @see Optional#isPresent()
      */
     public X get()
     {

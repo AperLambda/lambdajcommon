@@ -7,7 +7,7 @@
  * see the LICENSE file.
  */
 
-package com.aperlambda.lambdacommon.utils;
+package org.aperlambda.lambdacommon.utils;
 
 import org.jetbrains.annotations.NotNull;
 

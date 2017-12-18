@@ -7,10 +7,10 @@
  * see the LICENSE file.
  */
 
-package com.aperlambda.lambdacommon.documents;
+package org.aperlambda.lambdacommon.documents;
 
-import com.aperlambda.lambdacommon.utils.Serializable;
+import org.aperlambda.lambdacommon.utils.Serializable;
 
-public interface Element extends Serializable
+public interface Document extends Serializable
 {
 }

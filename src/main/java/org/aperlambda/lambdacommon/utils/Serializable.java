@@ -7,18 +7,19 @@
  * see the LICENSE file.
  */
 
-package com.aperlambda.lambdacommon.utils;
+package org.aperlambda.lambdacommon.utils;
 
+import com.google.gson.JsonObject;
 import org.jetbrains.annotations.NotNull;
 
-/**
- * Represents a nameable interface.
- *
- * @version 1.0.0
- * @since 1.0.0
- */
-public interface Nameable
+public interface Serializable
 {
     @NotNull
-    String getName();
+    default String serialize()
+    {
+        return toJson().toString();
+    }
+
+    @NotNull
+    JsonObject toJson();
 }

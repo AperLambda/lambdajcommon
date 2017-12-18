@@ -7,9 +7,9 @@
  * see the LICENSE file.
  */
 
-package com.aperlambda.lambdacommon.system;
+package org.aperlambda.lambdacommon.system;
 
-import com.aperlambda.lambdacommon.utils.Nameable;
+import org.aperlambda.lambdacommon.utils.Nameable;
 import org.jetbrains.annotations.NotNull;
 
 public enum OS implements Nameable

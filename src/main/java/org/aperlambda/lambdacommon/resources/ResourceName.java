@@ -7,9 +7,9 @@
  * see the LICENSE file.
  */
 
-package com.aperlambda.lambdacommon.resources;
+package org.aperlambda.lambdacommon.resources;
 
-import com.aperlambda.lambdacommon.utils.Nameable;
+import org.aperlambda.lambdacommon.utils.Nameable;
 import com.google.gson.*;
 import org.jetbrains.annotations.NotNull;
 

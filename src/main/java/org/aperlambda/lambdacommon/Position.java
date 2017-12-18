@@ -7,10 +7,10 @@
  * see the LICENSE file.
  */
 
-package com.aperlambda.lambdacommon;
+package org.aperlambda.lambdacommon;
 
-import com.aperlambda.lambdacommon.documents.Element;
-import com.aperlambda.lambdacommon.utils.Serializable;
+import org.aperlambda.lambdacommon.documents.Element;
+import org.aperlambda.lambdacommon.utils.Serializable;
 
 public interface Position extends Serializable, Element
 {
