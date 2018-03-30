@@ -1,7 +1,7 @@
 #
 # AperLambda ignore file
 #
-# v0.1
+# v0.2
 
 # JetBrains
 .idea/
@@ -33,6 +33,9 @@ package-lock.json
 # Editors
 ## VSCode
 .vscode/
+
+# Logging
+logs/
 
 # Common
 bin/

@@ -7,10 +7,11 @@
  * see the LICENSE file.
  */
 
-module com.aperlambda.lambdacommon {
-    exports com.aperlambda.lambdacommon.documents;
-    exports com.aperlambda.lambdacommon.resources;
-    exports com.aperlambda.lambdacommon.system;
-    exports com.aperlambda.lambdacommon.utils;
-    exports com.aperlambda.lambdacommon.utils.function;
+module org.aperlambda.lambdacommon {
+    exports org.aperlambda.lambdacommon.config;
+    exports org.aperlambda.lambdaorgmon.documents;
+    exports org.aperlambda.lambdacommon.resources;
+    exports org.aperlambda.lambdacommon.system;
+    exports org.aperlambda.lambdacommon.utils;
+    exports org.aperlambda.lambdacommon.utils.function;
 }
