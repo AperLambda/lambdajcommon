@@ -1,7 +1,7 @@
 #
 # AperLambda ignore file
 #
-# v0.2
+# v0.3
 
 # JetBrains
 .idea/
@@ -26,6 +26,8 @@ Cargo.lock
 CMakeCache.txt
 ## Gradle
 .gradle/
+## Maven
+target/
 ## Node.JS
 node_modules/
 package-lock.json
