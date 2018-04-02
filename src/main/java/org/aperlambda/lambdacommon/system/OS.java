@@ -14,42 +14,42 @@ import org.jetbrains.annotations.NotNull;
 
 public enum OS implements Nameable
 {
-    WINDOWS("Windows", "win"),
-    OSX("OSX", "mac"),
-    LINUX("Linux", "linux"),
-    SOLARIS("Solaris", "solaris", "sunos"),
-    FREEBSD("FreeBSD"),
-    OPENBSD("OpenBSD"),
-    NETBSD("NetBSD"),
-    UNKNOWN("Unknown", "unknown");
+	WINDOWS("Windows", "win"),
+	OSX("OSX", "mac"),
+	LINUX("Linux", "linux"),
+	SOLARIS("Solaris", "solaris", "sunos"),
+	FREEBSD("FreeBSD"),
+	OPENBSD("OpenBSD"),
+	NETBSD("NetBSD"),
+	UNKNOWN("Unknown", "unknown");
 
-    private String   prettyName;
-    private String[] designations;
+	private String   prettyName;
+	private String[] designations;
 
-    OS(String prettyName, String... designations)
-    {
-        this.prettyName = prettyName;
-        this.designations = designations;
-    }
+	OS(String prettyName, String... designations)
+	{
+		this.prettyName = prettyName;
+		this.designations = designations;
+	}
 
-    public static OS getCurrentPlatform()
-    {
-        String osName = System.getProperty("os.name").toLowerCase();
-        for (OS os : values())
-        {
-            for (String oStr : os.designations)
-            {
-                if (osName.contains(oStr))
-                    return os;
-            }
-        }
-        return UNKNOWN;
-    }
+	public static OS getCurrentPlatform()
+	{
+		String osName = System.getProperty("os.name").toLowerCase();
+		for (OS os : values())
+		{
+			for (String oStr : os.designations)
+			{
+				if (osName.contains(oStr))
+					return os;
+			}
+		}
+		return UNKNOWN;
+	}
 
-    @NotNull
-    @Override
-    public String getName()
-    {
-        return prettyName;
-    }
+	@NotNull
+	@Override
+	public String getName()
+	{
+		return prettyName;
+	}
 }

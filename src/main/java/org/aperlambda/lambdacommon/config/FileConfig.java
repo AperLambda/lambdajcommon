@@ -20,69 +20,69 @@ import java.io.File;
  */
 public abstract class FileConfig implements Config
 {
-    protected File    file;
-    protected boolean autoSave = false;
+	protected File    file;
+	protected boolean autoSave = false;
 
-    public FileConfig()
-    {}
+	public FileConfig()
+	{}
 
-    public FileConfig(File file)
-    {
-        in(file);
+	public FileConfig(File file)
+	{
+		in(file);
 
-        if (file != null && file.exists())
-            load();
-    }
+		if (file != null && file.exists())
+			load();
+	}
 
-    /**
-     * Defines the file of the config.
-     *
-     * @param file The config file.
-     * @return The current instance.
-     */
-    public FileConfig in(File file)
-    {
-        this.file = file;
-        return this;
-    }
+	/**
+	 * Defines the file of the config.
+	 *
+	 * @param file The config file.
+	 * @return The current instance.
+	 */
+	public FileConfig in(File file)
+	{
+		this.file = file;
+		return this;
+	}
 
-    /**
-     * Gets the file of the config.
-     *
-     * @return The file of the config.
-     */
-    public File getFile()
-    {
-        return file;
-    }
+	/**
+	 * Gets the file of the config.
+	 *
+	 * @return The file of the config.
+	 */
+	public File getFile()
+	{
+		return file;
+	}
 
-    /**
-     * Checks whether the configuration saves automatically after a value set.
-     *
-     * @return True if the config saves automatically else false.
-     */
-    public boolean hasAutoSave()
-    {
-        return autoSave;
-    }
+	/**
+	 * Checks whether the configuration saves automatically after a value set.
+	 *
+	 * @return True if the config saves automatically else false.
+	 */
+	public boolean hasAutoSave()
+	{
+		return autoSave;
+	}
 
-    /**
-     * Sets whether the configuration saves automatically after a value set.
-     *
-     * @param autoSave True if the config saves automatically else false.
-     */
-    public void setAutoSave(boolean autoSave)
-    {
-        this.autoSave = autoSave;
-    }
+	/**
+	 * Sets whether the configuration saves automatically after a value set.
+	 *
+	 * @param autoSave True if the config saves automatically else false.
+	 */
+	public void setAutoSave(boolean autoSave)
+	{
+		this.autoSave = autoSave;
+	}
 
-    public abstract void load();
+	public abstract void load();
 
-    public abstract void save();
+	public abstract void save();
 
-    @Override
-    public boolean isVirtual()
-    {
-        return false;
-    }
+	@Override
+	public boolean isVirtual()
+	{
+		return false;
+	}
 }

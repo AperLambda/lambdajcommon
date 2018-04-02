@@ -23,66 +23,66 @@ import static org.aperlambda.lambdacommon.LambdaConstants.GSON_PRETTY;
  */
 public class VirtualJsonConfig implements Config
 {
-    private JsonObject config = new JsonObject();
+	private JsonObject config = new JsonObject();
 
-    public VirtualJsonConfig()
-    {}
+	public VirtualJsonConfig()
+	{}
 
-    public VirtualJsonConfig(@NotNull JsonObject root)
-    {
-        this.config = root;
-    }
+	public VirtualJsonConfig(@NotNull JsonObject root)
+	{
+		this.config = root;
+	}
 
-    @Override
-    public <T> T get(String key, T def, Class<T> type)
-    {
-        return JsonConfig.jsonGet(config, key, def, type);
-    }
+	@Override
+	public <T> T get(String key, T def, Class<T> type)
+	{
+		return JsonConfig.jsonGet(config, key, def, type);
+	}
 
-    @Override
-    public void set(String key, Object value)
-    {
-        if (key.contains("."))
-        {
-            String[] path = key.split("\\.");
-            // Starts at root.
-            JsonObject currentObject = config;
+	@Override
+	public void set(String key, Object value)
+	{
+		if (key.contains("."))
+		{
+			String[] path = key.split("\\.");
+			// Starts at root.
+			JsonObject currentObject = config;
 
-            for (int i = 0; i < path.length - 1; i++)
-            {
-                String currentKey = path[i];
+			for (int i = 0; i < path.length - 1; i++)
+			{
+				String currentKey = path[i];
 
-                if (!currentObject.has(key))
-                    currentObject.add(currentKey, new JsonObject());
+				if (!currentObject.has(key))
+					currentObject.add(currentKey, new JsonObject());
 
-                currentObject = currentObject.getAsJsonObject(currentKey);
-            }
+				currentObject = currentObject.getAsJsonObject(currentKey);
+			}
 
-            currentObject.add(path[path.length - 1], GSON_PRETTY.toJsonTree(value));
-        }
-        else
-            config.add(key, GSON_PRETTY.toJsonTree(value));
-    }
+			currentObject.add(path[path.length - 1], GSON_PRETTY.toJsonTree(value));
+		}
+		else
+			config.add(key, GSON_PRETTY.toJsonTree(value));
+	}
 
-    @Override
-    public <T> T at(String path, T def, Class<T> type)
-    {
-        return JsonConfig.jsonAt(config, path, def, type);
-    }
+	@Override
+	public <T> T at(String path, T def, Class<T> type)
+	{
+		return JsonConfig.jsonAt(config, path, def, type);
+	}
 
-    @Override
-    public boolean isVirtual()
-    {
-        return true;
-    }
+	@Override
+	public boolean isVirtual()
+	{
+		return true;
+	}
 
-    /**
-     * Gets the root JSON Object of the configuration.
-     *
-     * @return The root JSON Object of the config.
-     */
-    public JsonObject getConfig()
-    {
-        return config;
-    }
+	/**
+	 * Gets the root JSON Object of the configuration.
+	 *
+	 * @return The root JSON Object of the config.
+	 */
+	public JsonObject getConfig()
+	{
+		return config;
+	}
 }

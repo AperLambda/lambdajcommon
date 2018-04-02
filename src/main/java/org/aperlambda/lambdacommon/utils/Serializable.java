@@ -14,12 +14,12 @@ import org.jetbrains.annotations.NotNull;
 
 public interface Serializable
 {
-    @NotNull
-    default String serialize()
-    {
-        return toJson().toString();
-    }
+	@NotNull
+	default String serialize()
+	{
+		return toJson().toString();
+	}
 
-    @NotNull
-    JsonObject toJson();
+	@NotNull
+	JsonObject toJson();
 }

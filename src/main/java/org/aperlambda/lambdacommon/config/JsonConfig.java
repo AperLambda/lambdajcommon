@@ -30,124 +30,124 @@ import static org.aperlambda.lambdacommon.LambdaConstants.JSON_PARSER;
  */
 public class JsonConfig extends FileConfig
 {
-    private JsonObject config;
+	private JsonObject config;
 
-    public JsonConfig()
-    {
-        super();
-    }
+	public JsonConfig()
+	{
+		super();
+	}
 
-    public JsonConfig(File file)
-    {
-        super(file);
-    }
+	public JsonConfig(File file)
+	{
+		super(file);
+	}
 
-    @Override
-    public void load()
-    {
-        try
-        {
-            config = JSON_PARSER.parse(Files.asCharSource(file, Charset.defaultCharset()).read()).getAsJsonObject();
-        }
-        catch (IOException e)
-        {
-            throw new RuntimeException(e);
-        }
-    }
+	@Override
+	public void load()
+	{
+		try
+		{
+			config = JSON_PARSER.parse(Files.asCharSource(file, Charset.defaultCharset()).read()).getAsJsonObject();
+		}
+		catch (IOException e)
+		{
+			throw new RuntimeException(e);
+		}
+	}
 
-    @Override
-    public void save()
-    {
-        if (!file.exists())
-            file.getParentFile().mkdirs();
+	@Override
+	public void save()
+	{
+		if (!file.exists())
+			file.getParentFile().mkdirs();
 
-        try
-        {
-            Files.asCharSink(file, Charset.defaultCharset()).write(GSON_PRETTY.toJson(config));
-        }
-        catch (IOException e)
-        {
-            throw new RuntimeException(e);
-        }
-    }
+		try
+		{
+			Files.asCharSink(file, Charset.defaultCharset()).write(GSON_PRETTY.toJson(config));
+		}
+		catch (IOException e)
+		{
+			throw new RuntimeException(e);
+		}
+	}
 
-    @Override
-    public void set(String key, Object value)
-    {
-        if (key.contains("."))
-        {
-            String[] path = key.split("\\.");
-            // Starts at root.
-            JsonObject currentObject = config;
+	@Override
+	public void set(String key, Object value)
+	{
+		if (key.contains("."))
+		{
+			String[] path = key.split("\\.");
+			// Starts at root.
+			JsonObject currentObject = config;
 
-            for (int i = 0; i < path.length - 1; i++)
-            {
-                String currentKey = path[i];
+			for (int i = 0; i < path.length - 1; i++)
+			{
+				String currentKey = path[i];
 
-                // Add objects to achieve the path.
-                if (!currentObject.has(key))
-                    currentObject.add(currentKey, new JsonObject());
+				// Add objects to achieve the path.
+				if (!currentObject.has(key))
+					currentObject.add(currentKey, new JsonObject());
 
-                currentObject = currentObject.getAsJsonObject(currentKey);
-            }
+				currentObject = currentObject.getAsJsonObject(currentKey);
+			}
 
-            currentObject.add(path[path.length - 1], GSON_PRETTY.toJsonTree(value));
-        }
-        else
-            config.add(key, GSON_PRETTY.toJsonTree(value));
+			currentObject.add(path[path.length - 1], GSON_PRETTY.toJsonTree(value));
+		}
+		else
+			config.add(key, GSON_PRETTY.toJsonTree(value));
 
-        if (autoSave)
-            save();
-    }
+		if (autoSave)
+			save();
+	}
 
-    @Override
-    public <T> T at(String path, T def, Class<T> type)
-    {
-        return jsonAt(config, path, def, type);
-    }
+	@Override
+	public <T> T at(String path, T def, Class<T> type)
+	{
+		return jsonAt(config, path, def, type);
+	}
 
-    @Override
-    public <T> T get(String key, T def, Class<T> type)
-    {
-        return jsonGet(config, key, def, type);
-    }
+	@Override
+	public <T> T get(String key, T def, Class<T> type)
+	{
+		return jsonGet(config, key, def, type);
+	}
 
-    static <T> T jsonGet(JsonObject config, String key, T def, Class<T> type)
-    {
-        T value = GSON_PRETTY.fromJson(config.get(key), type);
-        return value == null ? def : value;
-    }
+	static <T> T jsonGet(JsonObject config, String key, T def, Class<T> type)
+	{
+		T value = GSON_PRETTY.fromJson(config.get(key), type);
+		return value == null ? def : value;
+	}
 
-    static <T> T jsonAt(JsonObject config, String path, T def, Class<T> type)
-    {
-        if (path.contains("."))
-        {
-            try
-            {
-                String[] parts = path.split("\\.");
-                // Starts at root.
-                JsonElement currentElement = config;
+	static <T> T jsonAt(JsonObject config, String path, T def, Class<T> type)
+	{
+		if (path.contains("."))
+		{
+			try
+			{
+				String[] parts = path.split("\\.");
+				// Starts at root.
+				JsonElement currentElement = config;
 
-                for (int i = 0; i < parts.length - 1; i++)
-                {
-                    currentElement = currentElement.getAsJsonObject().get(parts[i]);
+				for (int i = 0; i < parts.length - 1; i++)
+				{
+					currentElement = currentElement.getAsJsonObject().get(parts[i]);
 
-                    // Cannot go further...
-                    if (currentElement == null)
-                        return def;
-                    else if (!currentElement.isJsonObject())
-                        throw new IllegalArgumentException("Field '" + parts[i] + "' isn't an object!");
-                }
+					// Cannot go further...
+					if (currentElement == null)
+						return def;
+					else if (!currentElement.isJsonObject())
+						throw new IllegalArgumentException("Field '" + parts[i] + "' isn't an object!");
+				}
 
-                T value = GSON_PRETTY.fromJson(currentElement.getAsJsonObject().get(parts[parts.length - 1]), type);
-                return value == null ? def : value;
-            }
-            catch (JsonParseException e)
-            {
-                return def;
-            }
-        }
-        else
-        return jsonGet(config, path, def, type);
-    }
+				T value = GSON_PRETTY.fromJson(currentElement.getAsJsonObject().get(parts[parts.length - 1]), type);
+				return value == null ? def : value;
+			}
+			catch (JsonParseException e)
+			{
+				return def;
+			}
+		}
+		else
+			return jsonGet(config, path, def, type);
+	}
 }

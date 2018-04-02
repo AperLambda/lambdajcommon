@@ -15,3 +15,7 @@
  - Added `LambdaConstants.GSON`
  - Added `LambdaConstants.GSON_PRETTY`
  - Added `LambdaConstants.JSON_PARSER`
+ 
+## 1.3.1
+
+ - Added `ResourcesManager` with getResource(FromJar), saveResourceFromJava, etc...
