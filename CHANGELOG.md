@@ -19,3 +19,7 @@
 ## 1.3.1
 
  - Added `ResourcesManager` with getResource(FromJar), saveResourceFromJava, etc...
+
+# 1.3.2
+
+ - Added getResource with URL argument and InputStream argument in `ResourcesManager`

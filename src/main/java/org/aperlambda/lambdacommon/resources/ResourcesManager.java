@@ -30,14 +30,21 @@ public class ResourcesManager
 		return DEFAULT_RESOURCES_MANAGER;
 	}
 
-	public boolean saveResourceFromJar(@NotNull String path, File dest, boolean replace)
+	public boolean saveResource(@NotNull URL path, @NotNull File dest, boolean replace)
 	{
-		path = path.replace('\\', '/');
-		InputStream is = getResourceFromJar(path);
+		if (path.getPath() == null)
+			return false;
+
+		InputStream is = getResource(path);
 
 		if (is == null)
 			return false;
 
+		return saveResource(is, path.getPath(), dest, replace);
+	}
+
+	public boolean saveResource(@NotNull InputStream input, @NotNull String path, @NotNull File dest, boolean replace)
+	{
 		File outFile = new File(dest, path);
 		File parentDir = outFile.getParentFile();
 		if (!parentDir.exists())
@@ -47,7 +54,7 @@ public class ResourcesManager
 		{
 			try
 			{
-				Files.copy(is, outFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+				Files.copy(input, outFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 			}
 			catch (IOException e)
 			{
@@ -55,6 +62,17 @@ public class ResourcesManager
 			}
 		}
 		return true;
+	}
+
+	public boolean saveResourceFromJar(@NotNull String path, @NotNull File dest, boolean replace)
+	{
+		path = path.replace('\\', '/');
+		InputStream is = getResourceFromJar(path);
+
+		if (is == null)
+			return false;
+
+		return saveResource(is, path, dest, replace);
 	}
 
 	public @Nullable InputStream getResource(@NotNull URL url)
