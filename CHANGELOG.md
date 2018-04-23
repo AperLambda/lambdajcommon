@@ -23,3 +23,7 @@
 # 1.3.2
 
  - Added getResource with URL argument and InputStream argument in `ResourcesManager`
+
+# 1.3.3
+
+ - Fix the getMethod in LambdaReflection (added setAccessible(true)).
