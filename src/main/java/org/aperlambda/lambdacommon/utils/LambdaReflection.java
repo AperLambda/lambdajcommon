@@ -107,6 +107,7 @@ public class LambdaReflection
 	 * @param object       The specified object.
 	 * @param field        The specified field.
 	 * @param defaultValue The default value if cannot access to the field's value.
+	 * @param <V>          The type of the value to return.
 	 * @return The optional value.
 	 */
 	@SuppressWarnings("unchecked")
@@ -145,8 +146,10 @@ public class LambdaReflection
 	{
 		try
 		{
-			return Optional.of(
+			Optional<Method> method = Optional.of(
 					declared ? clazz.getDeclaredMethod(name, parameterTypes) : clazz.getMethod(name, parameterTypes));
+			method.ifPresent(m -> m.setAccessible(true));
+			return method;
 		}
 		catch (NoSuchMethodException e)
 		{
