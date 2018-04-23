@@ -31,3 +31,7 @@
 # 1.3.4
 
  - Added `Optional::fromJava(java.util.Optional)`
+ 
+# 1.3.5
+
+ - Fix `JsonConfig#set` and `VirtualJsonConfig#set`

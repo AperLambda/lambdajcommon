@@ -52,7 +52,7 @@ public class VirtualJsonConfig implements Config
 			{
 				String currentKey = path[i];
 
-				if (!currentObject.has(key))
+				if (!currentObject.has(currentKey))
 					currentObject.add(currentKey, new JsonObject());
 
 				currentObject = currentObject.getAsJsonObject(currentKey);

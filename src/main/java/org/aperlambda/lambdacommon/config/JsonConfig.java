@@ -85,7 +85,7 @@ public class JsonConfig extends FileConfig
 				String currentKey = path[i];
 
 				// Add objects to achieve the path.
-				if (!currentObject.has(key))
+				if (!currentObject.has(currentKey))
 					currentObject.add(currentKey, new JsonObject());
 
 				currentObject = currentObject.getAsJsonObject(currentKey);
