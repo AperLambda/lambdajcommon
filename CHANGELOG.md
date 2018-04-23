@@ -27,3 +27,7 @@
 # 1.3.3
 
  - Fix the getMethod in LambdaReflection (added setAccessible(true)).
+ 
+# 1.3.4
+
+ - Added `Optional::fromJava(java.util.Optional)`

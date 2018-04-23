@@ -24,7 +24,6 @@ public class Optional<X> implements Serializable
 
 	private final X _value;
 
-
 	Optional()
 	{
 		_value = null;
@@ -35,24 +34,26 @@ public class Optional<X> implements Serializable
 		_value = Objects.requireNonNull(value);
 	}
 
-	@NotNull
-	public static <T> Optional<T> empty()
+	public static <T> @NotNull Optional<T> empty()
 	{
 		@SuppressWarnings("unchecked")
 		Optional<T> OwO = (Optional<T>) EMPTY;
 		return OwO;
 	}
 
-	@NotNull
-	public static <T> Optional<T> of(@NotNull T something)
+	public static <T> @NotNull Optional<T> of(@NotNull T something)
 	{
 		return new Optional<>(something);
 	}
 
-	@NotNull
-	public static <T> Optional<T> ofNullable(T somethingNullable)
+	public static <T> @NotNull Optional<T> ofNullable(T somethingNullable)
 	{
 		return somethingNullable == null ? empty() : of(somethingNullable);
+	}
+
+	public static <T> @NotNull Optional<T> fromJava(@NotNull java.util.Optional<T> java)
+	{
+		return java.map(Optional::of).orElseGet(Optional::empty);
 	}
 
 	/**
