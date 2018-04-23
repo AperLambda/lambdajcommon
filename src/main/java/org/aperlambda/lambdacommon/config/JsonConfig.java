@@ -150,4 +150,14 @@ public class JsonConfig extends FileConfig
 		else
 			return jsonGet(config, path, def, type);
 	}
+
+	/**
+	 * Gets the root JSON Object of the configuration.
+	 *
+	 * @return The root JSON Object of the config.
+	 */
+	public JsonObject getConfig()
+	{
+		return config;
+	}
 }
