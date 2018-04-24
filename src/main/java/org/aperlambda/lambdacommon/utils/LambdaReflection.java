@@ -65,10 +65,9 @@ public class LambdaReflection
 	 * @param field  The specified field.
 	 * @param value  The value to set.
 	 */
-	public static void setValue(@NotNull Object object, @NotNull Field field, @Nullable Object value)
+	public static void setValue(@Nullable Object object, @NotNull Field field, @Nullable Object value)
 	{
-		if (!field.isAccessible())
-			field.setAccessible(true);
+		field.setAccessible(true);
 		try
 		{
 			field.set(object, value);
@@ -88,8 +87,7 @@ public class LambdaReflection
 	 */
 	public static @Nullable Object getFieldValue(@Nullable Object object, @NotNull Field field)
 	{
-		if (!field.isAccessible())
-			field.setAccessible(true);
+		field.setAccessible(true);
 		try
 		{
 			return field.get(object);
@@ -113,8 +111,7 @@ public class LambdaReflection
 	@SuppressWarnings("unchecked")
 	public static <V> @Nullable V getFieldValue(@Nullable Object object, @NotNull Field field, V defaultValue)
 	{
-		if (!field.isAccessible())
-			field.setAccessible(true);
+		field.setAccessible(true);
 		try
 		{
 			return (V) field.get(object);

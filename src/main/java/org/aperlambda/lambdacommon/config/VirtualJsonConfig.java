@@ -44,13 +44,13 @@ public class VirtualJsonConfig implements Config
 	{
 		if (key.contains("."))
 		{
-			String[] path = key.split("\\.");
+			var path = key.split("\\.");
 			// Starts at root.
-			JsonObject currentObject = config;
+			var currentObject = config;
 
 			for (int i = 0; i < path.length - 1; i++)
 			{
-				String currentKey = path[i];
+				var currentKey = path[i];
 
 				if (!currentObject.has(currentKey))
 					currentObject.add(currentKey, new JsonObject());

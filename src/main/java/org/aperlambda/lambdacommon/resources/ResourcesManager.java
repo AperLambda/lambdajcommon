@@ -45,8 +45,8 @@ public class ResourcesManager
 
 	public boolean saveResource(@NotNull InputStream input, @NotNull String path, @NotNull File dest, boolean replace)
 	{
-		File outFile = new File(dest, path);
-		File parentDir = outFile.getParentFile();
+		var outFile = new File(dest, path);
+		var parentDir = outFile.getParentFile();
 		if (!parentDir.exists())
 			parentDir.mkdirs();
 
@@ -79,7 +79,7 @@ public class ResourcesManager
 	{
 		try
 		{
-			URLConnection connection = url.openConnection();
+			var connection = url.openConnection();
 			connection.setUseCaches(false);
 			return connection.getInputStream();
 		}
@@ -91,7 +91,7 @@ public class ResourcesManager
 
 	public @Nullable InputStream getResourceFromJar(@NotNull String file)
 	{
-		Optional<URL> url = getResourceURLFromJar(file);
+		var url = getResourceURLFromJar(file);
 		if (url.isPresent())
 			return getResource(url.get());
 		else

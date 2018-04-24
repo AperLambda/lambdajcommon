@@ -42,7 +42,7 @@ public class Position3D extends Position2D
 	@Override
 	public JsonObject toJson()
 	{
-		JsonObject json = super.toJson();
+		var json = super.toJson();
 		json.addProperty("z", z);
 		return json;
 	}

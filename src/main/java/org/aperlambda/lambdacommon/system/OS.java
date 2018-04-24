@@ -35,9 +35,9 @@ public enum OS implements Nameable
 	public static OS getCurrentPlatform()
 	{
 		String osName = System.getProperty("os.name").toLowerCase();
-		for (OS os : values())
+		for (var os : values())
 		{
-			for (String oStr : os.designations)
+			for (var oStr : os.designations)
 			{
 				if (osName.contains(oStr))
 					return os;

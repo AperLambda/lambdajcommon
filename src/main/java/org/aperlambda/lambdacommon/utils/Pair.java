@@ -31,6 +31,8 @@ public final class Pair<K, V> implements Serializable
 	 * Creates a new pair from an Entry.
 	 *
 	 * @param entry The Entry.
+	 * @param <K>   The key of the pair.
+	 * @param <V>   The value of the pair.
 	 * @return A new pair.
 	 */
 	public static <K, V> Pair<K, V> fromEntry(Map.Entry<K, V> entry)
@@ -39,20 +41,11 @@ public final class Pair<K, V> implements Serializable
 	}
 
 	/**
-	 * Creates a new pair from JavaFX's pair.
-	 *
-	 * @param javaFXPair The JavaFX's pair.
-	 * @return A new pair.
-	 */
-	public static <K, V> Pair<K, V> fromJavaFX(javafx.util.Pair<K, V> javaFXPair)
-	{
-		return new Pair<>(javaFXPair.getKey(), javaFXPair.getValue());
-	}
-
-	/**
 	 * Creates a new list of pair from a Map.
 	 *
 	 * @param map The Map.
+	 * @param <K> The key of the pair.
+	 * @param <V> The value of the pair.
 	 * @return A new pair's list.
 	 */
 	public static <K, V> List<Pair<K, V>> newListFromMap(Map<K, V> map)

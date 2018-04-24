@@ -17,7 +17,16 @@ import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
+/**
+ * A container object which may or may not contain a non-{@code null} value.
+ * <p>
+ * But hey, what's the difference with {@link java.util.Optional}?
+ * The difference is this Optional is Serializable unlike Java's Optional.
+ *
+ * @param <X> The type of the value.
+ */
 public class Optional<X> implements Serializable
 {
 	private static final Optional<?> EMPTY = new Optional<>();
@@ -203,6 +212,25 @@ public class Optional<X> implements Serializable
 		if (isPresent())
 			return OptionalString.ofNullable(mapper.apply(_value));
 		else return OptionalString.empty();
+	}
+
+	/**
+	 * If a value is present, returns a sequential {@link Stream} containing
+	 * only that value, otherwise returns an empty {@code Stream}.
+	 *
+	 * @return The optional value as a {@code Stream}.
+	 * @since 1.4.0
+	 */
+	public Stream<X> stream()
+	{
+		if (!isPresent())
+		{
+			return Stream.empty();
+		}
+		else
+		{
+			return Stream.of(_value);
+		}
 	}
 
 	@Override

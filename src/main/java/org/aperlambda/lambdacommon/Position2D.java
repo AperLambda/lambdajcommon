@@ -53,7 +53,7 @@ public class Position2D implements Position
 	@Override
 	public JsonObject toJson()
 	{
-		JsonObject json = new JsonObject();
+		var json = new JsonObject();
 		json.addProperty("dimension", getDimension());
 		json.addProperty("x", x);
 		json.addProperty("y", y);

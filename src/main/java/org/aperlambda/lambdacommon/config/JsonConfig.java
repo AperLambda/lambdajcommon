@@ -76,13 +76,13 @@ public class JsonConfig extends FileConfig
 	{
 		if (key.contains("."))
 		{
-			String[] path = key.split("\\.");
+			var path = key.split("\\.");
 			// Starts at root.
-			JsonObject currentObject = config;
+			var currentObject = config;
 
 			for (int i = 0; i < path.length - 1; i++)
 			{
-				String currentKey = path[i];
+				var currentKey = path[i];
 
 				// Add objects to achieve the path.
 				if (!currentObject.has(currentKey))
@@ -124,7 +124,7 @@ public class JsonConfig extends FileConfig
 		{
 			try
 			{
-				String[] parts = path.split("\\.");
+				var parts = path.split("\\.");
 				// Starts at root.
 				JsonElement currentElement = config;
 
