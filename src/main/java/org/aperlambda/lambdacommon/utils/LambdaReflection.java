@@ -31,6 +31,22 @@ public class LambdaReflection
         Fields
      */
 
+	private static void setupField(Field field)
+	{
+		field.setAccessible(true);
+		try
+		{
+			var modifiersField = Field.class.getDeclaredField("modifiers");
+			modifiersField.setAccessible(true);
+			int modifiers = modifiersField.getInt(field);
+			modifiers &= ~Modifier.FINAL;
+			modifiersField.setInt(field, modifiers);
+		}
+		catch (IllegalAccessException | NoSuchFieldException ignored)
+		{
+		}
+	}
+
 	/**
 	 * Gets the field by it's name from a specified class.
 	 *
@@ -43,20 +59,56 @@ public class LambdaReflection
 	{
 		try
 		{
-			Field field = declared ? clazz.getDeclaredField(fieldName) : clazz.getField(fieldName);
-			field.setAccessible(true);
-			Field modifiersField = Field.class.getDeclaredField("modifiers");
-			modifiersField.setAccessible(true);
-			int modifiers = modifiersField.getInt(field);
-			modifiers &= ~Modifier.FINAL;
-			modifiersField.setInt(field, modifiers);
+			var field = declared ? clazz.getDeclaredField(fieldName) : clazz.getField(fieldName);
+			setupField(field);
 			return Optional.of(field);
 		}
-		catch (NoSuchFieldException | IllegalAccessException e)
+		catch (NoSuchFieldException e)
 		{
 			return Optional.empty();
 		}
 	}
+
+	/**
+	 * Gets the first field with the specified type in a class.
+	 *
+	 * @param clazz The class of the field.
+	 * @param type  The type of the field.
+	 * @return The optional field.
+	 */
+	public static @NotNull Optional<Field> getFirstFieldOfType(@NotNull Class<?> clazz, @NotNull Class<?> type)
+	{
+		for (var field : clazz.getDeclaredFields())
+		{
+			if (field.getType().equals(type))
+			{
+				setupField(field);
+				return Optional.of(field);
+			}
+		}
+		return Optional.empty();
+	}
+
+	/**
+	 * Gets the last field with the specified type in a class.
+	 *
+	 * @param clazz The class of the field.
+	 * @param type  The type of the field.
+	 * @return The optional field.
+	 */
+	public static @NotNull Optional<Field> getLastFieldOfType(@NotNull Class<?> clazz, @NotNull Class<?> type)
+	{
+		Field field = null;
+		for (var currentField : clazz.getDeclaredFields())
+		{
+			if (currentField.getType().equals(type))
+				field = currentField;
+		}
+		if (field != null)
+			setupField(field);
+		return Optional.ofNullable(field);
+	}
+
 
 	/**
 	 * Sets the value of the specified field in the instance of the specified object.
@@ -150,7 +202,6 @@ public class LambdaReflection
 		}
 		catch (NoSuchMethodException e)
 		{
-			e.printStackTrace();
 			return Optional.empty();
 		}
 	}
@@ -171,7 +222,6 @@ public class LambdaReflection
 		}
 		catch (IllegalAccessException | InvocationTargetException e)
 		{
-			e.printStackTrace();
 			return null;
 		}
 	}
@@ -223,9 +273,8 @@ public class LambdaReflection
 		}
 		catch (InstantiationException | IllegalAccessException | InvocationTargetException e)
 		{
-			e.printStackTrace();
+			return null;
 		}
-		return null;
 	}
 
 	/*
@@ -239,7 +288,6 @@ public class LambdaReflection
 		}
 		catch (ClassNotFoundException e)
 		{
-			e.printStackTrace();
 			return Optional.empty();
 		}
 	}
