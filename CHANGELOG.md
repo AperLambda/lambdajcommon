@@ -43,3 +43,8 @@
  - Add `module-info`
  - Use `var` keyword.
  - Gradle: Use of the experimental jigsaw plugin.
+ 
+# 1.4.1
+
+ - Add `LambdaReflection::getFirstFieldOfType`
+ - Add `LambdaReflection::getLastFieldOfType`
