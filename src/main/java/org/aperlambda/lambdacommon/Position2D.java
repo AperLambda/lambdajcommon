@@ -12,6 +12,12 @@ package org.aperlambda.lambdacommon;
 import com.google.gson.JsonObject;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Represents a position in a 2 dimensions coordinate system.
+ *
+ * @see Position
+ * @see Position3D
+ */
 public class Position2D implements Position
 {
 	private int x;

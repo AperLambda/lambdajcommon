@@ -13,6 +13,12 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
 
+/**
+ * A container object which may or may not contain a non-{@code null} value.
+ * <p>The value is a string.</p>
+ *
+ * @see Optional
+ */
 public final class OptionalString extends Optional<String>
 {
 	private static final OptionalString EMPTY = new OptionalString();

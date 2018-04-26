@@ -25,7 +25,7 @@ import static org.aperlambda.lambdacommon.LambdaConstants.JSON_PARSER;
  * Represents a JSON configuration stored in a file.
  *
  * @author LambdAurora
- * @version 1.3.0
+ * @version 1.4.0
  * @since 1.3.0
  */
 public class JsonConfig extends FileConfig

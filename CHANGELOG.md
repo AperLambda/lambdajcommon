@@ -52,3 +52,8 @@
 # 1.4.2
 
  - Renamed `Position#getDimension()` to `Position#getDimensions()`.
+ 
+# 1.4.4
+
+ - Documentation time!
+ - Add `Optional#filter(Predicate)`.

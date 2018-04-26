@@ -13,7 +13,7 @@ import org.aperlambda.lambdacommon.documents.Element;
 import org.aperlambda.lambdacommon.utils.Serializable;
 
 /**
- * Position represents a position in a coordinate system.
+ * Represents a position in a coordinate system.
  */
 public interface Position extends Serializable, Element
 {

@@ -12,6 +12,9 @@ package org.aperlambda.lambdacommon.system;
 import org.aperlambda.lambdacommon.utils.Nameable;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Lists all the operating systems which can be identified by {@code lambdajcommon}
+ */
 public enum OS implements Nameable
 {
 	WINDOWS("Windows", "win"),

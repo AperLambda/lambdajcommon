@@ -10,12 +10,14 @@
 package org.aperlambda.lambdacommon.utils;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.Serializable;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -26,6 +28,8 @@ import java.util.stream.Stream;
  * The difference is this Optional is Serializable unlike Java's Optional.
  *
  * @param <X> The type of the value.
+ * @author lambdaurora
+ * @version 1.4.4
  */
 public class Optional<X> implements Serializable
 {
@@ -38,16 +42,22 @@ public class Optional<X> implements Serializable
 		_value = null;
 	}
 
-	Optional(X value)
+	Optional(@NotNull X value)
 	{
 		_value = Objects.requireNonNull(value);
 	}
 
+	/**
+	 * Gets a container object which contain a {@code null} value.
+	 *
+	 * @param <T> The type of the value.
+	 * @return An empty optional.
+	 */
 	public static <T> @NotNull Optional<T> empty()
 	{
 		@SuppressWarnings("unchecked")
-		Optional<T> OwO = (Optional<T>) EMPTY;
-		return OwO;
+		var optional = (Optional<T>) EMPTY;
+		return optional;
 	}
 
 	public static <T> @NotNull Optional<T> of(@NotNull T something)
@@ -55,11 +65,18 @@ public class Optional<X> implements Serializable
 		return new Optional<>(something);
 	}
 
-	public static <T> @NotNull Optional<T> ofNullable(T somethingNullable)
+	public static <T> @NotNull Optional<T> ofNullable(@Nullable T somethingNullable)
 	{
 		return somethingNullable == null ? empty() : of(somethingNullable);
 	}
 
+	/**
+	 * Converts a {@code java.util.Optional} to a {@code org.aperlambda.lambdacommon.utils.Optional}.
+	 *
+	 * @param java A Java's optional
+	 * @param <T>  The type of the value.
+	 * @return A new Optional.
+	 */
 	public static <T> @NotNull Optional<T> fromJava(@NotNull java.util.Optional<T> java)
 	{
 		return java.map(Optional::of).orElseGet(Optional::empty);
@@ -76,9 +93,7 @@ public class Optional<X> implements Serializable
 	public X get()
 	{
 		if (_value == null)
-		{
 			throw new NoSuchElementException("No value present");
-		}
 		return _value;
 	}
 
@@ -174,6 +189,26 @@ public class Optional<X> implements Serializable
 	}
 
 	/**
+	 * If a value is present, and the value matches the given predicate,
+	 * returns an {@code Optional} describing the value, otherwise returns an
+	 * empty {@code Optional}.
+	 *
+	 * @param predicate the predicate to apply to a value, if present
+	 * @return An {@code Optional} describing the value of this
+	 * {@code Optional}, if a value is present and the value matches the
+	 * given predicate, otherwise an empty {@code Optional}.
+	 * @since 1.4.4
+	 */
+	public Optional<X> filter(@NotNull Predicate<? super X> predicate)
+	{
+		Objects.requireNonNull(predicate);
+		if (!isPresent())
+			return this;
+		else
+			return predicate.test(_value) ? this : empty();
+	}
+
+	/**
 	 * If a value is present, apply the provided mapping function to it,
 	 * and if the result is non-null, return an {@code Optional} describing the
 	 * result.  Otherwise return an empty {@code Optional}.
@@ -224,13 +259,9 @@ public class Optional<X> implements Serializable
 	public Stream<X> stream()
 	{
 		if (!isPresent())
-		{
 			return Stream.empty();
-		}
 		else
-		{
 			return Stream.of(_value);
-		}
 	}
 
 	@Override

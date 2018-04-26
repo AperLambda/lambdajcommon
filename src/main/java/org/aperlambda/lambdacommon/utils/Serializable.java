@@ -12,14 +12,20 @@ package org.aperlambda.lambdacommon.utils;
 import com.google.gson.JsonObject;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Represents a serializable interface.
+ */
 public interface Serializable
 {
-	@NotNull
-	default String serialize()
+	default @NotNull String serialize()
 	{
 		return toJson().toString();
 	}
 
-	@NotNull
-	JsonObject toJson();
+	/**
+	 * Serializes the object into a Json object.
+	 *
+	 * @return The serialized object.
+	 */
+	@NotNull JsonObject toJson();
 }

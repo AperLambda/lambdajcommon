@@ -59,6 +59,11 @@ public class ResourceName implements Nameable
 		return new String[]{o.substring(0, separatorIndex), o.substring(separatorIndex + 1)};
 	}
 
+	/**
+	 * Gets the domain of the resource.
+	 *
+	 * @return The domain of the resource.
+	 */
 	public String getDomain()
 	{
 		return domain;
@@ -70,6 +75,12 @@ public class ResourceName implements Nameable
 		return name;
 	}
 
+	/**
+	 * Creates a new {@code ResourceName} from this resource location.
+	 *
+	 * @param path The path to append.
+	 * @return The new {@code ResourceName} with the appended path.
+	 */
 	public ResourceName sub(String path)
 	{
 		return new ResourceName(this, path);

@@ -19,6 +19,10 @@ import org.jetbrains.annotations.NotNull;
  */
 public interface Nameable
 {
-	@NotNull
-	String getName();
+	/**
+	 * Gets the name of the object.
+	 *
+	 * @return The name of the object.
+	 */
+	@NotNull String getName();
 }

@@ -18,7 +18,7 @@ import static org.aperlambda.lambdacommon.LambdaConstants.GSON_PRETTY;
  * Represents a virtual JSON configuration.
  *
  * @author LambdAurora
- * @version 1.3.0
+ * @version 1.4.0
  * @since 1.3.0
  */
 public class VirtualJsonConfig implements Config

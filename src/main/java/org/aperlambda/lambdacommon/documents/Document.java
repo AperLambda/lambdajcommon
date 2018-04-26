@@ -11,6 +11,9 @@ package org.aperlambda.lambdacommon.documents;
 
 import org.aperlambda.lambdacommon.utils.Serializable;
 
+/**
+ * Represents a Serializable document.
+ */
 public interface Document extends Serializable
 {
 }

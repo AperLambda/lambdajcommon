@@ -21,15 +21,31 @@ import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
+/**
+ * A resources manager which can save resources.
+ */
 public class ResourcesManager
 {
 	private static final ResourcesManager DEFAULT_RESOURCES_MANAGER = new ResourcesManager();
 
+	/**
+	 * Gets the default implementation of the {@code ResourcesManager}.
+	 *
+	 * @return The default implementation.
+	 */
 	public static @NotNull ResourcesManager getDefaultResourcesManager()
 	{
 		return DEFAULT_RESOURCES_MANAGER;
 	}
 
+	/**
+	 * Saves a resource to a file.
+	 *
+	 * @param path    The path of the resource.
+	 * @param dest    The destination folder of the resource.
+	 * @param replace True if replace the existing file, else false.
+	 * @return True if success, else false.
+	 */
 	public boolean saveResource(@NotNull URL path, @NotNull File dest, boolean replace)
 	{
 		if (path.getPath() == null)
@@ -43,6 +59,15 @@ public class ResourcesManager
 		return saveResource(is, path.getPath(), dest, replace);
 	}
 
+	/**
+	 * Saves the resource to a file.
+	 *
+	 * @param input   The input stream of the resource.
+	 * @param path    The path of the resource.
+	 * @param dest    The destination folder of the resource.
+	 * @param replace True if replace existing file, else false.
+	 * @return True if success, else false.
+	 */
 	public boolean saveResource(@NotNull InputStream input, @NotNull String path, @NotNull File dest, boolean replace)
 	{
 		var outFile = new File(dest, path);
