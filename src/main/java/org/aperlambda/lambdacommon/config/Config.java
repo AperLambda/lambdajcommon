@@ -10,8 +10,7 @@
 package org.aperlambda.lambdacommon.config;
 
 import org.aperlambda.lambdacommon.utils.Serializable;
-
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents a configuration.

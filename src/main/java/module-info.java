@@ -8,16 +8,17 @@
  */
 
 module org.aperlambda.lambdacommon {
-    exports org.aperlambda.lambdacommon.config;
-    exports org.aperlambda.lambdacommon.documents;
-    exports org.aperlambda.lambdacommon.resources;
-    exports org.aperlambda.lambdacommon.system;
-    opens org.aperlambda.lambdacommon.utils;
-    exports org.aperlambda.lambdacommon.utils.function;
+	exports org.aperlambda.lambdacommon;
+	opens org.aperlambda.lambdacommon.utils;
+	exports org.aperlambda.lambdacommon.config;
+	exports org.aperlambda.lambdacommon.documents;
+	exports org.aperlambda.lambdacommon.resources;
+	exports org.aperlambda.lambdacommon.system;
+	exports org.aperlambda.lambdacommon.utils.function;
 
-    requires java.desktop;
+	requires java.desktop;
 
-    requires annotations;
-    requires com.google.common;
-    requires gson;
+	requires annotations;
+	requires com.google.common;
+	requires gson;
 }

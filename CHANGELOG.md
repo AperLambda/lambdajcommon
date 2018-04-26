@@ -48,3 +48,7 @@
 
  - Add `LambdaReflection::getFirstFieldOfType`
  - Add `LambdaReflection::getLastFieldOfType`
+ 
+# 1.4.2
+
+ - Renamed `Position#getDimension()` to `Position#getDimensions()`.

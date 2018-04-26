@@ -33,7 +33,7 @@ public class Position3D extends Position2D
 	}
 
 	@Override
-	public int getDimension()
+	public int getDimensions()
 	{
 		return 3;
 	}

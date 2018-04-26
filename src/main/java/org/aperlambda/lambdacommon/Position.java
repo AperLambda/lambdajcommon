@@ -12,13 +12,16 @@ package org.aperlambda.lambdacommon;
 import org.aperlambda.lambdacommon.documents.Element;
 import org.aperlambda.lambdacommon.utils.Serializable;
 
+/**
+ * Position represents a position in a coordinate system.
+ */
 public interface Position extends Serializable, Element
 {
 	/**
-	 * Gets the dimension of the position.
+	 * Gets the number of dimensions of the position.
 	 * Example: 2 for 2D, 3 for 3D, etc...
 	 *
-	 * @return The dimension of the position.
+	 * @return The number of dimensions of the position.
 	 */
-	int getDimension();
+	int getDimensions();
 }
