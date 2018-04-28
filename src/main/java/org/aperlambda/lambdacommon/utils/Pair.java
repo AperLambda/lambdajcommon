@@ -9,13 +9,24 @@
 
 package org.aperlambda.lambdacommon.utils;
 
+import org.aperlambda.lambdacommon.utils.function.PairFunction;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.function.Function;
+import java.util.stream.Stream;
 
+/**
+ * A container object which contain a key and may or may not contain a value.
+ *
+ * @param <K> The type of the key.
+ * @param <V> The type of the value.
+ * @version 1.4.5
+ */
 public final class Pair<K, V> implements Serializable
 {
 	private K           _key;
@@ -73,6 +84,57 @@ public final class Pair<K, V> implements Serializable
 	public Optional<V> getValue()
 	{
 		return _value;
+	}
+
+	/**
+	 * If a value is present, apply the provided mapping function to it,
+	 * and if the result is non-null, return an {@code Optional} describing the
+	 * result.  Otherwise return an empty {@code Optional}.
+	 *
+	 * @param <M>    The type of the key result of the mapping function.
+	 * @param <N>    The type of the value result of the mapping function.
+	 * @param mapper A mapping function to apply to the value, if present.
+	 * @return An {@code Optional} describing the result of applying a mapping
+	 * function to the value of this {@code Optional}, if a value is present,
+	 * otherwise an empty {@code Optional}.
+	 * @throws NullPointerException If the mapping function is null.
+	 */
+	@NotNull
+	public <M, N> Pair<? extends M, ? extends N> map(@NotNull PairFunction<K, V, ? extends M, ? extends N> mapper)
+	{
+		Objects.requireNonNull(mapper);
+		return mapper.apply(this);
+	}
+
+	/**
+	 * If a value is present, apply the provided mapping function to it,
+	 * and if the result is non-null, return an {@code Optional} describing the
+	 * result.  Otherwise return an empty {@code Optional}.
+	 *
+	 * @param <N>    The type of the result of the mapping function.
+	 * @param mapper A mapping function to apply to the value, if present.
+	 * @return An {@code Optional} describing the result of applying a mapping
+	 * function to the value of this {@code Optional}, if a value is present,
+	 * otherwise an empty {@code Optional}.
+	 * @throws NullPointerException If the mapping function is null.
+	 * @see Optional#map(Function)
+	 */
+	@NotNull
+	public <N> Optional<N> mapValue(@NotNull Function<? super V, ? extends N> mapper)
+	{
+		Objects.requireNonNull(mapper);
+		return _value.map(mapper);
+	}
+
+	/**
+	 * Returns a sequential {@link Stream} containing only that {@code Pair}.
+	 *
+	 * @return The {@code Pair} as a {@code Stream}.
+	 * @since 1.4.5
+	 */
+	public Stream<Pair<K, V>> stream()
+	{
+		return Stream.of(this);
 	}
 
 	@Override

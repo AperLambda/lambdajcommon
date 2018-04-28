@@ -57,3 +57,8 @@
 
  - Documentation time!
  - Add `Optional#filter(Predicate)`.
+ 
+# 1.4.5
+
+ - Add `PairFunction`.
+ - Add mapping functions to Pair.
