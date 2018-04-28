@@ -8,7 +8,7 @@ apply plugin: 'maven-publish'
 
 group = 'org.aperlambda'
 version = '1.4.5'
-description = 'A library written in Java 8 with common features.'
+description = 'A library written in Java 10 with common features.'
 
 sourceCompatibility = 10
 
