@@ -34,7 +34,7 @@ public class LambdaReflection
 	private static void setupField(Field field)
 	{
 		field.setAccessible(true);
-		try
+		/*try
 		{
 			var modifiersField = Field.class.getDeclaredField("modifiers");
 			modifiersField.setAccessible(true);
@@ -44,7 +44,7 @@ public class LambdaReflection
 		}
 		catch (IllegalAccessException | NoSuchFieldException ignored)
 		{
-		}
+		}*/
 	}
 
 	/**

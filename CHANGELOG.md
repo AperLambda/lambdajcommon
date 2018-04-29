@@ -70,3 +70,8 @@
 ### 1.4.7
 
  - Add `--add-opens` in compiler arguments to allow the access to `Field.modifiers`.
+ 
+### 1.4.8
+
+ - Undo changes of `1.4.7`
+ - Disables the modifiers change in `LambdaReflection#setupField()`: now we can't edit fields with the `final` modifier.
