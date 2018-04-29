@@ -36,7 +36,7 @@
 
  - Fix `JsonConfig#set` and `VirtualJsonConfig#set`
 
-# 1.4.0 - Update to Java 10
+## 1.4.0 - Update to Java 10
 
  - Add `org.aperlambda.lambdacommon.Optional#stream`
  - Removes `Pair::fromJavaFX`
@@ -44,25 +44,29 @@
  - Use `var` keyword.
  - Gradle: Use of the experimental jigsaw plugin.
  
-# 1.4.1
+### 1.4.1
 
  - Add `LambdaReflection::getFirstFieldOfType`
  - Add `LambdaReflection::getLastFieldOfType`
  
-# 1.4.2
+### 1.4.2
 
  - Renamed `Position#getDimension()` to `Position#getDimensions()`.
  
-# 1.4.4
+### 1.4.4
 
  - Documentation time!
  - Add `Optional#filter(Predicate)`.
  
-# 1.4.5
+### 1.4.5
 
  - Add `PairFunction`.
  - Add mapping functions to Pair.
  
-# 1.4.6
+### 1.4.6
 
  - Add `ResourceNameable`
+ 
+### 1.4.7
+
+ - Add `--add-opens` in compiler arguments to allow the access to `Field.modifiers`.
