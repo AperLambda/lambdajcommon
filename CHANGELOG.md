@@ -62,3 +62,7 @@
 
  - Add `PairFunction`.
  - Add mapping functions to Pair.
+ 
+# 1.4.6
+
+ - Add `ResourceNameable`
