@@ -13,10 +13,7 @@ import org.aperlambda.lambdacommon.utils.function.PairFunction;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -25,7 +22,7 @@ import java.util.stream.Stream;
  *
  * @param <K> The type of the key.
  * @param <V> The type of the value.
- * @version 1.4.5
+ * @version 1.4.9
  */
 public final class Pair<K, V> implements Serializable
 {

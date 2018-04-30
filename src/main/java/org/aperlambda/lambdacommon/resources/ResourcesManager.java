@@ -9,7 +9,6 @@
 
 package org.aperlambda.lambdacommon.resources;
 
-import org.aperlambda.lambdacommon.utils.Optional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -17,12 +16,14 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.Optional;
 
 /**
  * A resources manager which can save resources.
+ *
+ * @version 1.4.9
  */
 public class ResourcesManager
 {
@@ -117,10 +118,7 @@ public class ResourcesManager
 	public @Nullable InputStream getResourceFromJar(@NotNull String file)
 	{
 		var url = getResourceURLFromJar(file);
-		if (url.isPresent())
-			return getResource(url.get());
-		else
-			return null;
+		return url.map(this::getResource).orElse(null);
 	}
 
 	public @NotNull Optional<URL> getResourceURLFromJar(@NotNull String file)

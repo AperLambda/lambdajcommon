@@ -75,3 +75,7 @@
 
  - Undo changes of `1.4.7`
  - Disables the modifiers change in `LambdaReflection#setupField()`: now we can't edit fields with the `final` modifier.
+ 
+### 1.4.9
+
+ - Removes the `Optional` and `OptionalString` because it already exists in Java...
