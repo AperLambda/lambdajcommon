@@ -5,6 +5,7 @@ plugins {
 apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
+apply plugin: 'signing'
 
 group = 'org.aperlambda'
 version = '1.4.9'
@@ -31,6 +32,7 @@ javadoc {
     inputs.property("moduleName", moduleName)
     doFirst {
         options.addStringOption('-module-path', classpath.asPath)
+        options.addStringOption('html5')
     }
 }
 
@@ -55,6 +57,10 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 artifacts {
     archives sourcesJar
     archives javadocJar
+}
+
+signing {
+    sign configurations.archives
 }
 
 publishing {
