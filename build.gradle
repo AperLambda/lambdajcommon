@@ -31,8 +31,8 @@ dependencies {
 javadoc {
     inputs.property("moduleName", moduleName)
     doFirst {
+        options.addStringOption('XDignore.symbol.file', '-html5')
         options.addStringOption('-module-path', classpath.asPath)
-        options.addStringOption('html5')
     }
 }
 
