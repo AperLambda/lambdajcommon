@@ -14,11 +14,12 @@ import java.io.File;
 /**
  * Represents a configuration stored in a file.
  *
+ * @param <C> The configuration object type.
  * @author LambdAurora
- * @version 1.3.0
+ * @version 1.4.10
  * @since 1.3.0
  */
-public abstract class FileConfig implements Config
+public abstract class FileConfig<C> implements Config<C>
 {
 	protected File    file;
 	protected boolean autoSave = false;

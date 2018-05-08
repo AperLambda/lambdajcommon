@@ -79,3 +79,10 @@
 ### 1.4.9
 
  - Removes the `Optional` and `OptionalString` because it already exists in Java...
+ 
+### 1.4.10
+
+ - Add `PropertiesConfig`
+ - Add Json serializer and deserializer for `Pair`, `ResourceName`
+ - Move `JsonConfig` and `VirtualJsonConfig`
+ - Add `C getConfig()` in `Config`, C is the type of the root config.

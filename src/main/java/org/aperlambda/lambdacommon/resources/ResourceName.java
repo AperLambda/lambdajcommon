@@ -115,7 +115,10 @@ public class ResourceName implements Nameable
 	public static final ResourceName RESOURCE_INVALID   = new ResourceName("common", "invalid");
 	public static final ResourceName RESOURCE_NOT_FOUND = new ResourceName("common", "404");
 
-	public static class Serializer implements JsonDeserializer<ResourceName>, JsonSerializer<ResourceName>
+	/**
+	 * Represents the JSON serializer and deserializer of {@link ResourceName}.
+	 */
+	public static class ResourceNameJsonSerializer implements JsonDeserializer<ResourceName>, JsonSerializer<ResourceName>
 	{
 		public ResourceName deserialize(JsonElement json, Type type, JsonDeserializationContext context) throws
 																										 JsonParseException

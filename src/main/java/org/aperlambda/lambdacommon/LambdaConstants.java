@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
 import org.aperlambda.lambdacommon.resources.ResourceName;
+import org.aperlambda.lambdacommon.utils.Pair;
 
 import java.awt.*;
 
@@ -32,7 +33,11 @@ public class LambdaConstants
 	/*
 		JSON
 	 */
-	public static final Gson       GSON        = new GsonBuilder().disableHtmlEscaping().create();
-	public static final Gson       GSON_PRETTY = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
-	public static final JsonParser JSON_PARSER = new JsonParser();
+	private static final GsonBuilder BASE_GSON   = new GsonBuilder()
+			.registerTypeHierarchyAdapter(ResourceName.class, new ResourceName.ResourceNameJsonSerializer())
+			.registerTypeHierarchyAdapter(Pair.class, new Pair.JsonPairSerializer())
+			.disableHtmlEscaping();
+	public static final  Gson        GSON        = BASE_GSON.create();
+	public static final  Gson        GSON_PRETTY = BASE_GSON.setPrettyPrinting().create();
+	public static final  JsonParser  JSON_PARSER = new JsonParser();
 }

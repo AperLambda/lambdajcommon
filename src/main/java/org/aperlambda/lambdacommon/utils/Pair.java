@@ -9,10 +9,13 @@
 
 package org.aperlambda.lambdacommon.utils;
 
+import com.google.gson.*;
 import org.aperlambda.lambdacommon.utils.function.PairFunction;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.Serializable;
+import java.lang.reflect.Type;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Stream;
@@ -22,7 +25,7 @@ import java.util.stream.Stream;
  *
  * @param <K> The type of the key.
  * @param <V> The type of the value.
- * @version 1.4.9
+ * @version 1.4.10
  */
 public final class Pair<K, V> implements Serializable
 {
@@ -33,6 +36,20 @@ public final class Pair<K, V> implements Serializable
 	{
 		_key = key;
 		_value = Optional.ofNullable(value);
+	}
+
+	/**
+	 * Creates a new pair from a key and a value.
+	 *
+	 * @param key   The key of the pair.
+	 * @param value The value of the pair.
+	 * @param <K>   The type of the key.
+	 * @param <V>   The type of the value.
+	 * @return The new pair.
+	 */
+	public static <K, V> Pair<K, V> of(@NotNull K key, @Nullable V value)
+	{
+		return new Pair<>(key, value);
 	}
 
 	/**
@@ -161,5 +178,55 @@ public final class Pair<K, V> implements Serializable
 				"key: " + _key +
 				", value: " + _value +
 				'}';
+	}
+
+	/**
+	 * Represents the JSON serializer and deserializer of {@link Pair}.
+	 */
+	public static class JsonPairSerializer implements JsonSerializer<Pair<?, ?>>, JsonDeserializer<Pair<?, ?>>
+	{
+		@Override
+		public JsonElement serialize(Pair<?, ?> src, Type typeOfSrc, JsonSerializationContext context)
+		{
+			var json = new JsonObject();
+			var key = new JsonObject();
+			key.addProperty("type", src.getKey().getClass().getName());
+			key.add("data", context.serialize(src.getKey()));
+			json.add("key", key);
+			src.getValue().ifPresent(value -> {
+				var jsonValue = new JsonObject();
+				jsonValue.addProperty("type", value.getClass().getName());
+				jsonValue.add("data", context.serialize(value));
+				json.add("value", jsonValue);
+			});
+			return json;
+		}
+
+		@Override
+		public Pair<?, ?> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException
+		{
+			if (!(json instanceof JsonObject))
+				throw new JsonParseException("Cannot parse Pair<?, ?>: the json must be an object!");
+			var obj = (JsonObject) json;
+			if (!obj.has("key") || !obj.get("key").isJsonObject())
+				throw new JsonParseException("Key is not present or is malformed.");
+			var jsonKey = obj.getAsJsonObject("key");
+			try
+			{
+				var type = Class.forName(jsonKey.get("type").getAsString());
+				var key = context.deserialize(jsonKey.get("data"), type);
+
+				if (!obj.has("value"))
+					return Pair.of(key, null);
+				var jsonValue = obj.getAsJsonObject("value");
+				var valueType = Class.forName(jsonValue.get("type").getAsString());
+				var value = context.deserialize(jsonValue.get("data"), valueType);
+				return Pair.of(key, value);
+			}
+			catch (ClassNotFoundException e)
+			{
+				throw new JsonParseException(e);
+			}
+		}
 	}
 }

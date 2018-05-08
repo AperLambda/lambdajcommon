@@ -7,12 +7,13 @@
  * see the LICENSE file.
  */
 
-package org.aperlambda.lambdacommon.config;
+package org.aperlambda.lambdacommon.config.json;
 
 import com.google.common.io.Files;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import org.aperlambda.lambdacommon.config.FileConfig;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,10 +26,10 @@ import static org.aperlambda.lambdacommon.LambdaConstants.JSON_PARSER;
  * Represents a JSON configuration stored in a file.
  *
  * @author LambdAurora
- * @version 1.4.0
+ * @version 1.4.10
  * @since 1.3.0
  */
-public class JsonConfig extends FileConfig
+public class JsonConfig extends FileConfig<JsonObject> implements BaseJsonConfig
 {
 	private JsonObject config;
 
@@ -156,6 +157,7 @@ public class JsonConfig extends FileConfig
 	 *
 	 * @return The root JSON Object of the config.
 	 */
+	@Override
 	public JsonObject getConfig()
 	{
 		return config;

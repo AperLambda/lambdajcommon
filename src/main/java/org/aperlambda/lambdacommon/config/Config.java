@@ -15,11 +15,12 @@ import org.jetbrains.annotations.Nullable;
 /**
  * Represents a configuration.
  *
+ * @param <C> The configuration object type.
  * @author LambdAurora
  * @version 1.3.0
  * @since 1.3.0
  */
-public interface Config
+public interface Config<C>
 {
 	/**
 	 * Gets a value from the config.
@@ -111,4 +112,11 @@ public interface Config
 	 * @return True if virtual else false.
 	 */
 	boolean isVirtual();
+
+	/**
+	 * Gets the configuration object.
+	 *
+	 * @return The configuration object.
+	 */
+	C getConfig();
 }

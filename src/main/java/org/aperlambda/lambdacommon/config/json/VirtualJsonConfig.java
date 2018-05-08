@@ -7,9 +7,11 @@
  * see the LICENSE file.
  */
 
-package org.aperlambda.lambdacommon.config;
+package org.aperlambda.lambdacommon.config.json;
 
 import com.google.gson.JsonObject;
+import org.aperlambda.lambdacommon.config.Config;
+import org.aperlambda.lambdacommon.config.json.JsonConfig;
 import org.jetbrains.annotations.NotNull;
 
 import static org.aperlambda.lambdacommon.LambdaConstants.GSON_PRETTY;
@@ -18,10 +20,10 @@ import static org.aperlambda.lambdacommon.LambdaConstants.GSON_PRETTY;
  * Represents a virtual JSON configuration.
  *
  * @author LambdAurora
- * @version 1.4.0
+ * @version 1.4.10
  * @since 1.3.0
  */
-public class VirtualJsonConfig implements Config
+public class VirtualJsonConfig implements BaseJsonConfig
 {
 	private JsonObject config = new JsonObject();
 
@@ -81,6 +83,7 @@ public class VirtualJsonConfig implements Config
 	 *
 	 * @return The root JSON Object of the config.
 	 */
+	@Override
 	public JsonObject getConfig()
 	{
 		return config;
