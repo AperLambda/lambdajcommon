@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
  * Represents a cache with a lifetime for the stored objects.
  *
  * @param <T> The typename of the stored objects.
- * @version 1.5.0
+ * @version 1.5.1
  * @since 1.5.0
  */
 public class TimedCache<T> implements Cache<T>
@@ -46,7 +46,7 @@ public class TimedCache<T> implements Cache<T>
 	@Override
 	public void update()
 	{
-		var removeQueue = cachedObjects.stream().filter(o -> (o.getCreationTime() + lifetime * 1000) >
+		var removeQueue = cachedObjects.stream().filter(o -> (o.getLastUsed() + lifetime * 1000) >
 				System.currentTimeMillis()).collect(Collectors.toList());
 		removeQueue.forEach(this::remove);
 	}

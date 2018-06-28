@@ -10,13 +10,13 @@ import java.util.function.Consumer;
  * Represents a object which is cached.
  *
  * @param <T> The typename of the stored object.
- * @version 1.5.0
+ * @version 1.5.1
  * @since 1.5.0
  */
 public class CachedObject<T>
 {
-	protected final          long creationTime;
-	protected final @NotNull T    object;
+	protected                long                  lastUsed;
+	protected @NotNull       T                     object;
 	protected final @NotNull Optional<Consumer<T>> onDestroy;
 
 	public CachedObject(@NotNull T object)
@@ -26,19 +26,19 @@ public class CachedObject<T>
 
 	public CachedObject(@NotNull T object, @Nullable Consumer<T> onDestroy)
 	{
-		creationTime = System.currentTimeMillis();
+		lastUsed = System.currentTimeMillis();
 		this.object = object;
 		this.onDestroy = Optional.ofNullable(onDestroy);
 	}
 
 	/**
-	 * Gets the creation time of the cached object.
+	 * Gets the last used time of the cached object.
 	 *
-	 * @return The creation time in milliseconds.
+	 * @return The last used time in milliseconds.
 	 */
-	public long getCreationTime()
+	public long getLastUsed()
 	{
-		return creationTime;
+		return lastUsed;
 	}
 
 	/**
@@ -49,6 +49,17 @@ public class CachedObject<T>
 	public @NotNull T getObject()
 	{
 		return object;
+	}
+
+	/**
+	 * Gets the cached object and update the last used time.
+	 *
+	 * @return The cached object.
+	 */
+	public @NotNull T update()
+	{
+		lastUsed = System.currentTimeMillis();
+		return getObject();
 	}
 
 	/**
