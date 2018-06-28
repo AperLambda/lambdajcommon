@@ -23,6 +23,19 @@ public class Position2D implements Position
 	private int x;
 	private int y;
 
+	/**
+	 * Creates a new position object in 2D.
+	 *
+	 * @param x The value of the coordinate X.
+	 * @param y The value of the coordinate Y.
+	 * @return A new position in 2D.
+	 * @see Position2D#Position2D(int, int)
+	 */
+	public static Position2D of(int x, int y)
+	{
+		return new Position2D(x, y);
+	}
+
 	public Position2D(int x, int y)
 	{
 		this.x = x;

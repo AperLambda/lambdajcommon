@@ -8,7 +8,7 @@ apply plugin: 'maven-publish'
 apply plugin: 'signing'
 
 group = 'org.aperlambda'
-version = '1.4.10'
+version = '1.5.0'
 description = 'A library written in Java 10 with common features.'
 
 sourceCompatibility = 10
@@ -77,7 +77,7 @@ publishing {
     }
     repositories {
         maven {
-            url "$buildDir/repo"
+            url = "$buildDir/repo"
         }
     }
 }

@@ -22,6 +22,20 @@ public class Position3D extends Position2D
 {
 	private int z;
 
+	/**
+	 * Creates a new position object in 3D.
+	 *
+	 * @param x The value of the coordinate X.
+	 * @param y The value of the coordinate Y.
+	 * @param z The value of the coordinate Z.
+	 * @return A new position in 3D.
+	 * @see Position3D#Position3D(int, int, int)
+	 */
+	public static Position3D of(int x, int y, int z)
+	{
+		return new Position3D(x, y, z);
+	}
+
 	public Position3D(int x, int y, int z)
 	{
 		super(x, y);

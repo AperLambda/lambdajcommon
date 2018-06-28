@@ -9,6 +9,7 @@
 
 open module org.aperlambda.lambdacommon {
 	exports org.aperlambda.lambdacommon;
+	exports org.aperlambda.lambdacommon.cache;
 	exports org.aperlambda.lambdacommon.config;
 	exports org.aperlambda.lambdacommon.documents;
 	exports org.aperlambda.lambdacommon.resources;
