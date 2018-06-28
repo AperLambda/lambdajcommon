@@ -1,17 +1,19 @@
 package org.aperlambda.lambdacommon.cache;
 
 import org.aperlambda.lambdacommon.utils.LambdaUtils;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 /**
  * Represents a cache with a lifetime for the stored objects.
  *
  * @param <T> The typename of the stored objects.
- * @version 1.5.1
+ * @version 1.5.2
  * @since 1.5.0
  */
 public class TimedCache<T> implements Cache<T>
@@ -52,9 +54,9 @@ public class TimedCache<T> implements Cache<T>
 	}
 
 	@Override
-	public void add(T object)
+	public void add(T object, @Nullable Consumer<T> onDestroy)
 	{
-		cachedObjects.add(new CachedObject<>(object));
+		cachedObjects.add(new CachedObject<>(object, onDestroy));
 	}
 
 	@Override

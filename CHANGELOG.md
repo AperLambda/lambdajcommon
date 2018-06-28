@@ -86,3 +86,9 @@
  - Add Json serializer and deserializer for `Pair`, `ResourceName`
  - Move `JsonConfig` and `VirtualJsonConfig`
  - Add `C getConfig()` in `Config`, C is the type of the root config.
+ 
+## 1.5.0 - Caches!
+
+ - Add `Cache`
+ - Add `TimedCache`
+ - Add `ChachedObject`

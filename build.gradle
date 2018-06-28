@@ -8,7 +8,7 @@ apply plugin: 'maven-publish'
 apply plugin: 'signing'
 
 group = 'org.aperlambda'
-version = '1.5.1'
+version = '1.5.2'
 description = 'A library written in Java 10 with common features.'
 
 sourceCompatibility = 10
