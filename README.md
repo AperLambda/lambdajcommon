@@ -35,5 +35,5 @@ maven { url "https://aperlambda.github.io/maven" }
 
 And in your dependencies add:
 ```groovy
-compile 'org.aperlambda:lambdajcommon:1.5.2'
+compile 'org.aperlambda:lambdajcommon:1.5.3'
 ```

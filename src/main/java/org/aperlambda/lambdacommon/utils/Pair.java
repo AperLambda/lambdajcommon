@@ -25,17 +25,17 @@ import java.util.stream.Stream;
  *
  * @param <K> The type of the key.
  * @param <V> The type of the value.
- * @version 1.4.10
+ * @version 1.5.3
  */
 public final class Pair<K, V> implements Serializable
 {
-	private K           _key;
-	private Optional<V> _value;
+	private final K _key;
+	private final V _value;
 
 	public Pair(@NotNull K key, V value)
 	{
 		_key = key;
-		_value = Optional.ofNullable(value);
+		_value = value;
 	}
 
 	/**
@@ -95,7 +95,7 @@ public final class Pair<K, V> implements Serializable
 	 *
 	 * @return Value for this pair.
 	 */
-	public Optional<V> getValue()
+	public V getValue()
 	{
 		return _value;
 	}
@@ -134,10 +134,10 @@ public final class Pair<K, V> implements Serializable
 	 * @see Optional#map(Function)
 	 */
 	@NotNull
-	public <N> Optional<N> mapValue(@NotNull Function<? super V, ? extends N> mapper)
+	public <N> N mapValue(@NotNull Function<? super V, ? extends N> mapper)
 	{
 		Objects.requireNonNull(mapper);
-		return _value.map(mapper);
+		return mapper.apply(_value);
 	}
 
 	/**
@@ -193,12 +193,14 @@ public final class Pair<K, V> implements Serializable
 			key.addProperty("type", src.getKey().getClass().getName());
 			key.add("data", context.serialize(src.getKey()));
 			json.add("key", key);
-			src.getValue().ifPresent(value -> {
+			var value = src.getValue();
+			if (value != null)
+			{
 				var jsonValue = new JsonObject();
 				jsonValue.addProperty("type", value.getClass().getName());
 				jsonValue.add("data", context.serialize(value));
 				json.add("value", jsonValue);
-			});
+			}
 			return json;
 		}
 

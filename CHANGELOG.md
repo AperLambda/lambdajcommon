@@ -92,3 +92,7 @@
  - Add `Cache`
  - Add `TimedCache`
  - Add `ChachedObject`
+ 
+### 1.5.3
+
+ - Add keys to caching system.

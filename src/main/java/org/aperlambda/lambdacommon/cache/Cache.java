@@ -1,5 +1,6 @@
 package org.aperlambda.lambdacommon.cache;
 
+import org.aperlambda.lambdacommon.utils.Pair;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -10,10 +11,10 @@ import java.util.stream.Stream;
  * Represents a cache.
  *
  * @param <T> The typename of the stored objects.
- * @version 1.5.2
+ * @version 1.5.3
  * @since 1.5.0
  */
-public interface Cache<T>
+public interface Cache<K, T>
 {
 	/**
 	 * Updates the cache.
@@ -22,26 +23,39 @@ public interface Cache<T>
 
 	/**
 	 * Adds an object to cache.
+	 *
+	 * @param key    The assigned key.
 	 * @param object The object to cache.
 	 */
-	default void add(T object)
+	default void add(K key, T object)
 	{
-		add(object, null);
+		add(key, object, null);
 	}
 
 	/**
 	 * Adds an object to cache.
-	 * @param object The object to cache.
+	 *
+	 * @param key       The assigned key.
+	 * @param object    The object to cache.
 	 * @param onDestroy The function to execute when the object is removed from the cache.
 	 */
-	void add(T object, @Nullable Consumer<T> onDestroy);
+	void add(K key, T object, @Nullable Consumer<T> onDestroy);
+
+	/**
+	 * Checks whether the cache has an object with the specified key.
+	 *
+	 * @param key The key of the cached object.
+	 * @return True if the cache contains an object with the specified key, else false.
+	 */
+	boolean has(K key);
 
 	/**
 	 * Checks whether the cache has the specified object.
+	 *
 	 * @param object The object to check.
 	 * @return True if the cache contains the object, else false.
 	 */
-	default boolean has(T object)
+	default boolean hasObject(T object)
 	{
 		return stream().anyMatch(o -> o.equals(object));
 	}
@@ -49,14 +63,11 @@ public interface Cache<T>
 	/**
 	 * Removes a cached object.
 	 *
-	 * @param cachedObject The cached object to remove.
+	 * @param key The key assigned to the cached object.
 	 */
-	void remove(CachedObject<T> cachedObject);
+	void remove(K key);
 
 	List<CachedObject<T>> list();
 
-	default Stream<CachedObject<T>> stream()
-	{
-		return list().stream();
-	}
+	Stream<Pair<K, CachedObject<T>>> stream();
 }

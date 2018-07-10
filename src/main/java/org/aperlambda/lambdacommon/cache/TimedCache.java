@@ -1,28 +1,31 @@
 package org.aperlambda.lambdacommon.cache;
 
 import org.aperlambda.lambdacommon.utils.LambdaUtils;
+import org.aperlambda.lambdacommon.utils.Pair;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Represents a cache with a lifetime for the stored objects.
  *
  * @param <T> The typename of the stored objects.
- * @version 1.5.2
+ * @version 1.5.3
  * @since 1.5.0
  */
-public class TimedCache<T> implements Cache<T>
+public class TimedCache<K, T> implements Cache<K, T>
 {
-	private final Timer                 timer         = new Timer();
-	private final int                   lifetime;
-	private final List<CachedObject<T>> cachedObjects = new ArrayList<>();
+	private final Timer                    timer         = new Timer();
+	private final int                      lifetime;
+	private final HashMap<K, CachedObject<T>> cachedObjects = new HashMap<>();
 
-	public static <T> TimedCache<T> ofLifetime(int lifetime)
+	public static <K, T> TimedCache<K, T> ofLifetime(int lifetime)
 	{
 		return new TimedCache<>(lifetime);
 	}
@@ -48,27 +51,39 @@ public class TimedCache<T> implements Cache<T>
 	@Override
 	public void update()
 	{
-		var removeQueue = cachedObjects.stream().filter(o -> (o.getLastUsed() + lifetime * 1000) >
-				System.currentTimeMillis()).collect(Collectors.toList());
+		var removeQueue = stream().filter(o -> (o.getValue().getLastUsed() + lifetime * 1000) >
+				System.currentTimeMillis()).map(Pair::getKey).collect(Collectors.toList());
 		removeQueue.forEach(this::remove);
 	}
 
 	@Override
-	public void add(T object, @Nullable Consumer<T> onDestroy)
+	public void add(K key, T object, @Nullable Consumer<T> onDestroy)
 	{
-		cachedObjects.add(new CachedObject<>(object, onDestroy));
+		cachedObjects.put(key, new CachedObject<>(object, onDestroy));
 	}
 
 	@Override
-	public void remove(CachedObject<T> cachedObject)
+	public boolean has(K key)
 	{
-		cachedObjects.remove(cachedObject);
-		cachedObject.destroy();
+		return cachedObjects.containsKey(key);
+	}
+
+	@Override
+	public void remove(K key)
+	{
+		cachedObjects.remove(key);
 	}
 
 	@Override
 	public List<CachedObject<T>> list()
 	{
-		return new ArrayList<>(cachedObjects);
+		return new ArrayList<>(cachedObjects.values());
+	}
+
+	@Override
+	public Stream<Pair<K, CachedObject<T>>> stream()
+	{
+		var list = Pair.newListFromMap(cachedObjects);
+		return list.stream();
 	}
 }
