@@ -1,5 +1,5 @@
 /*
- * Copyright © 2018 AperLambda <aper.entertainment@gmail.com>
+ * Copyright © 2019 LambdAurora <aurora42lambda@gmail.com>
  *
  * This file is part of λjcommon.
  *
@@ -21,69 +21,70 @@ import java.io.File;
  */
 public abstract class FileConfig<C> implements Config<C>
 {
-	protected File    file;
-	protected boolean autoSave = false;
+    protected File    file;
+    protected boolean auto_save = false;
 
-	public FileConfig()
-	{}
+    public FileConfig()
+    {
+    }
 
-	public FileConfig(File file)
-	{
-		in(file);
+    public FileConfig(File file)
+    {
+        in(file);
 
-		if (file != null && file.exists())
-			load();
-	}
+        if (file != null && file.exists())
+            load();
+    }
 
-	/**
-	 * Defines the file of the config.
-	 *
-	 * @param file The config file.
-	 * @return The current instance.
-	 */
-	public FileConfig in(File file)
-	{
-		this.file = file;
-		return this;
-	}
+    /**
+     * Defines the file of the config.
+     *
+     * @param file The config file.
+     * @return The current instance.
+     */
+    public FileConfig in(File file)
+    {
+        this.file = file;
+        return this;
+    }
 
-	/**
-	 * Gets the file of the config.
-	 *
-	 * @return The file of the config.
-	 */
-	public File getFile()
-	{
-		return file;
-	}
+    /**
+     * Gets the file of the config.
+     *
+     * @return The file of the config.
+     */
+    public File get_file()
+    {
+        return file;
+    }
 
-	/**
-	 * Checks whether the configuration saves automatically after a value set.
-	 *
-	 * @return True if the config saves automatically else false.
-	 */
-	public boolean hasAutoSave()
-	{
-		return autoSave;
-	}
+    /**
+     * Checks whether the configuration saves automatically after a value set.
+     *
+     * @return True if the config saves automatically else false.
+     */
+    public boolean has_auto_save()
+    {
+        return auto_save;
+    }
 
-	/**
-	 * Sets whether the configuration saves automatically after a value set.
-	 *
-	 * @param autoSave True if the config saves automatically else false.
-	 */
-	public void setAutoSave(boolean autoSave)
-	{
-		this.autoSave = autoSave;
-	}
+    /**
+     * Sets whether the configuration saves automatically after a value set.
+     *
+     * @param auto_save True if the config saves automatically else false.
+     */
+    public void set_auto_save(boolean auto_save)
+    {
+        this.auto_save = auto_save;
+    }
 
-	public abstract void load();
+    public abstract void load();
 
-	public abstract void save();
+    public abstract void save();
 
-	@Override
-	public boolean isVirtual()
-	{
-		return false;
-	}
+    @Override
+    public boolean is_virtual()
+    {
+        return false;
+    }
 }

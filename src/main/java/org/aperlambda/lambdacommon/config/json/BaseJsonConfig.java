@@ -1,5 +1,5 @@
 /*
- * Copyright © 2018 AperLambda <aper.entertainment@gmail.com>
+ * Copyright © 2019 LambdAurora <aurora42lambda@gmail.com>
  *
  * This file is part of λjcommon.
  *
@@ -16,10 +16,10 @@ import org.aperlambda.lambdacommon.config.Config;
  * Represents the base of a JSON configuration.
  *
  * @author lambdaurora
- * @version 1.4.10
+ * @version 1.6.0
  * @since 1.4.10
  */
 public interface BaseJsonConfig extends Config<JsonObject>
 {
-	JsonObject getConfig();
+    JsonObject get_config();
 }

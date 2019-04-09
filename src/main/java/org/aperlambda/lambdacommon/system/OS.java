@@ -1,5 +1,5 @@
 /*
- * Copyright © 2018 AperLambda <aper.entertainment@gmail.com>
+ * Copyright © 2019 LambdAurora <aurora42lambda@gmail.com>
  *
  * This file is part of λjcommon.
  *
@@ -17,42 +17,40 @@ import org.jetbrains.annotations.NotNull;
  */
 public enum OS implements Nameable
 {
-	WINDOWS("Windows", "win"),
-	OSX("OSX", "mac"),
-	LINUX("Linux", "linux"),
-	SOLARIS("Solaris", "solaris", "sunos"),
-	FREEBSD("FreeBSD"),
-	OPENBSD("OpenBSD"),
-	NETBSD("NetBSD"),
-	UNKNOWN("Unknown", "unknown");
+    WINDOWS("Windows", "win"),
+    OSX("OSX", "mac"),
+    LINUX("Linux", "linux"),
+    SOLARIS("Solaris", "solaris", "sunos"),
+    FREEBSD("FreeBSD"),
+    OPENBSD("OpenBSD"),
+    NETBSD("NetBSD"),
+    UNKNOWN("Unknown", "unknown");
 
-	private String   prettyName;
-	private String[] designations;
+    private String   pretty_name;
+    private String[] designations;
 
-	OS(String prettyName, String... designations)
-	{
-		this.prettyName = prettyName;
-		this.designations = designations;
-	}
+    OS(String pretty_name, String... designations)
+    {
+        this.pretty_name = pretty_name;
+        this.designations = designations;
+    }
 
-	public static OS getCurrentPlatform()
-	{
-		String osName = System.getProperty("os.name").toLowerCase();
-		for (var os : values())
-		{
-			for (var oStr : os.designations)
-			{
-				if (osName.contains(oStr))
-					return os;
-			}
-		}
-		return UNKNOWN;
-	}
+    public static OS get_current_platform()
+    {
+        String os_name = System.getProperty("os.name").toLowerCase();
+        for (var os : values()) {
+            for (var o_str : os.designations) {
+                if (os_name.contains(o_str))
+                    return os;
+            }
+        }
+        return UNKNOWN;
+    }
 
-	@NotNull
-	@Override
-	public String getName()
-	{
-		return prettyName;
-	}
+    @NotNull
+    @Override
+    public String get_name()
+    {
+        return this.pretty_name;
+    }
 }

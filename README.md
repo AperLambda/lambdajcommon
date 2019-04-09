@@ -2,7 +2,6 @@
 
 [![Java](https://img.shields.io/badge/language-Java%2010-9B599A.svg?style=flat-square)](http://java.com)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/AperLambda/lambdajcommon/master/LICENSE)
-![Version](https://img.shields.io/github/release/AperLambda/lambdajcommon.svg?style=flat-square)
 [![GitHub issues](https://img.shields.io/github/issues/AperLambda/lambdajcommon.svg?style=flat-square)](https://github.com/AperLambda/lambdajcommon/issues)
 
 [λcommon](https://github.com/AperLambda/lambdacommon.git):
@@ -26,7 +25,7 @@ It's very simple!
 
 ### Gradle
 
-Note: Please see tutorials about Gradle and Java 9
+Note: Please see tutorials about Gradle and Java 10
 
 In your repositories declaration add:
 ```groovy
@@ -35,5 +34,5 @@ maven { url "https://aperlambda.github.io/maven" }
 
 And in your dependencies add:
 ```groovy
-compile 'org.aperlambda:lambdajcommon:1.5.3'
+compile 'org.aperlambda:lambdajcommon:1.6.0'
 ```

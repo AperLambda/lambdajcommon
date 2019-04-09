@@ -1,5 +1,5 @@
 /*
- * Copyright © 2018 AperLambda <aper.entertainment@gmail.com>
+ * Copyright © 2019 LambdAurora <aurora42lambda@gmail.com>
  *
  * This file is part of λjcommon.
  *
@@ -10,8 +10,6 @@
 package org.aperlambda.lambdacommon.config.json;
 
 import com.google.gson.JsonObject;
-import org.aperlambda.lambdacommon.config.Config;
-import org.aperlambda.lambdacommon.config.json.JsonConfig;
 import org.jetbrains.annotations.NotNull;
 
 import static org.aperlambda.lambdacommon.LambdaConstants.GSON_PRETTY;
@@ -20,72 +18,70 @@ import static org.aperlambda.lambdacommon.LambdaConstants.GSON_PRETTY;
  * Represents a virtual JSON configuration.
  *
  * @author LambdAurora
- * @version 1.4.10
+ * @version 1.6.0
  * @since 1.3.0
  */
 public class VirtualJsonConfig implements BaseJsonConfig
 {
-	private JsonObject config = new JsonObject();
+    private JsonObject config = new JsonObject();
 
-	public VirtualJsonConfig()
-	{}
+    public VirtualJsonConfig()
+    {
+    }
 
-	public VirtualJsonConfig(@NotNull JsonObject root)
-	{
-		this.config = root;
-	}
+    public VirtualJsonConfig(@NotNull JsonObject root)
+    {
+        this.config = root;
+    }
 
-	@Override
-	public <T> T get(String key, T def, Class<T> type)
-	{
-		return JsonConfig.jsonGet(config, key, def, type);
-	}
+    @Override
+    public <T> T get(String key, T def, Class<T> type)
+    {
+        return JsonConfig.json_get(config, key, def, type);
+    }
 
-	@Override
-	public void set(String key, Object value)
-	{
-		if (key.contains("."))
-		{
-			var path = key.split("\\.");
-			// Starts at root.
-			var currentObject = config;
+    @Override
+    public void set(String key, Object value)
+    {
+        if (key.contains(".")) {
+            var path = key.split("\\.");
+            // Starts at root.
+            var current_object = config;
 
-			for (int i = 0; i < path.length - 1; i++)
-			{
-				var currentKey = path[i];
+            for (int i = 0; i < path.length - 1; i++) {
+                var current_key = path[i];
 
-				if (!currentObject.has(currentKey))
-					currentObject.add(currentKey, new JsonObject());
+                if (!current_object.has(current_key))
+                    current_object.add(current_key, new JsonObject());
 
-				currentObject = currentObject.getAsJsonObject(currentKey);
-			}
+                current_object = current_object.getAsJsonObject(current_key);
+            }
 
-			currentObject.add(path[path.length - 1], GSON_PRETTY.toJsonTree(value));
-		}
-		else
-			config.add(key, GSON_PRETTY.toJsonTree(value));
-	}
+            current_object.add(path[path.length - 1], GSON_PRETTY.toJsonTree(value));
+        } else
+            config.add(key, GSON_PRETTY.toJsonTree(value));
+    }
 
-	@Override
-	public <T> T at(String path, T def, Class<T> type)
-	{
-		return JsonConfig.jsonAt(config, path, def, type);
-	}
+    @Override
+    public <T> T at(String path, T def, Class<T> type)
+    {
+        return JsonConfig.json_at(config, path, def, type);
+    }
 
-	@Override
-	public boolean isVirtual()
-	{
-		return true;
-	}
+    @Override
+    public boolean is_virtual()
+    {
+        return true;
+    }
 
-	/**
-	 * Gets the root JSON Object of the configuration.
-	 *
-	 * @return The root JSON Object of the config.
-	 */
-	@Override
-	public JsonObject getConfig()
-	{
-		return config;
-	}
+    /**
+     * Gets the root JSON Object of the configuration.
+     *
+     * @return The root JSON Object of the config.
+     */
+    @Override
+    public JsonObject get_config()
+    {
+        return config;
+    }
 }

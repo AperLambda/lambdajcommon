@@ -1,5 +1,5 @@
 /*
- * Copyright © 2018 AperLambda <aper.entertainment@gmail.com>
+ * Copyright © 2019 LambdAurora <aurora42lambda@gmail.com>
  *
  * This file is part of λjcommon.
  *
@@ -17,15 +17,15 @@ import org.jetbrains.annotations.NotNull;
  */
 public interface Serializable
 {
-	default @NotNull String serialize()
-	{
-		return toJson().toString();
-	}
+    default @NotNull String serialize()
+    {
+        return to_json().toString();
+    }
 
-	/**
-	 * Serializes the object into a Json object.
-	 *
-	 * @return The serialized object.
-	 */
-	@NotNull JsonObject toJson();
+    /**
+     * Serializes the object into a Json object.
+     *
+     * @return The serialized object.
+     */
+    @NotNull JsonObject to_json();
 }

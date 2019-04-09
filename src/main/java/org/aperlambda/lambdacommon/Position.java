@@ -1,5 +1,5 @@
 /*
- * Copyright © 2018 AperLambda <aper.entertainment@gmail.com>
+ * Copyright © 2019 LambdAurora <aurora42lambda@gmail.com>
  *
  * This file is part of λjcommon.
  *
@@ -17,11 +17,11 @@ import org.aperlambda.lambdacommon.utils.Serializable;
  */
 public interface Position extends Serializable, Element
 {
-	/**
-	 * Gets the number of dimensions of the position.
-	 * Example: 2 for 2D, 3 for 3D, etc...
-	 *
-	 * @return The number of dimensions of the position.
-	 */
-	int getDimensions();
+    /**
+     * Gets the number of dimensions of the position.
+     * Example: 2 for 2D, 3 for 3D, etc...
+     *
+     * @return The number of dimensions of the position.
+     */
+    int get_dimensions();
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2018 AperLambda <aper.entertainment@gmail.com>
+ * Copyright © 2019 LambdAurora <aurora42lambda@gmail.com>
  *
  * This file is part of λjcommon.
  *
@@ -13,22 +13,23 @@ import java.io.File;
 
 public final class LambdaSystem
 {
-	private static final File userDir = new File(getUserDirectoryStr());
+    private static final File userDir = new File(get_user_dir_str());
 
-	private LambdaSystem() {}
+    private LambdaSystem()
+    {}
 
-	public static OS getOS()
-	{
-		return OS.getCurrentPlatform();
-	}
+    public static OS get_os()
+    {
+        return OS.get_current_platform();
+    }
 
-	public static String getUserDirectoryStr()
-	{
-		return System.getProperty("user.home");
-	}
+    public static String get_user_dir_str()
+    {
+        return System.getProperty("user.home");
+    }
 
-	public static File getUserDirectory()
-	{
-		return userDir;
-	}
+    public static File get_user_dir()
+    {
+        return userDir;
+    }
 }

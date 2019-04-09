@@ -96,3 +96,9 @@
 ### 1.5.3
 
  - Add keys to caching system.
+
+## 1.6.0 - Breaking update!
+
+ - Changed the style.
+ - Switched to snake_case naming.
+ - Updated licence.
