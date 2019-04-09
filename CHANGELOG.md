@@ -102,3 +102,7 @@
  - Changed the style.
  - Switched to snake_case naming.
  - Updated licence.
+ 
+### 1.6.1
+ 
+ - Renamed `ResourceNameable::get_ressource_name()` to `ResourceNameable::get_resource_name()`.
