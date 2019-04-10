@@ -106,3 +106,7 @@
 ### 1.6.1
  
  - Renamed `ResourceNameable::get_ressource_name()` to `ResourceNameable::get_resource_name()`.
+
+### 1.6.2
+
+ - Added `org.aperlambda.lambdajcommon.utils.Cancellable`.
