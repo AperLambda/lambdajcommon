@@ -8,7 +8,7 @@ apply plugin: 'maven-publish'
 apply plugin: 'signing'
 
 group = 'org.aperlambda'
-version = '1.6.2'
+version = '1.6.3'
 description = 'A library written in Java 10 with common features.'
 
 sourceCompatibility = 10
@@ -23,9 +23,9 @@ repositories {
 }
 
 dependencies {
-    compile 'com.google.code.gson:gson:2.8.2'
-    compile 'com.google.guava:guava:24.1-jre'
-    compile 'org.jetbrains:annotations:16.0.1'
+    compile 'com.google.code.gson:gson:2.8.5'
+    compile 'com.google.guava:guava:27.1-jre'
+    compile 'org.jetbrains:annotations:17.0.0'
 }
 
 javadoc {

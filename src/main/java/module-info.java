@@ -18,8 +18,8 @@ open module org.aperlambda.lambdacommon {
     exports org.aperlambda.lambdacommon.utils.function;
 
     requires java.desktop;
+    requires org.jetbrains.annotations;
 
-    requires annotations;
     requires com.google.common;
     requires gson;
 }
