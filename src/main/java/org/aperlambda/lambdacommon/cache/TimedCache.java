@@ -25,7 +25,7 @@ import java.util.stream.Stream;
  * Represents a cache with a lifetime for the stored objects.
  *
  * @param <T> The typename of the stored objects.
- * @version 1.6.0
+ * @version 1.7.0
  * @since 1.5.0
  */
 public class TimedCache<K, T> implements Cache<K, T>
@@ -60,7 +60,7 @@ public class TimedCache<K, T> implements Cache<K, T>
     @Override
     public void update()
     {
-        var remove_queue = stream().filter(o -> (o.get_value().get_last_used() + lifetime * 1000) > System.currentTimeMillis()).map(Pair::get_key).collect(Collectors.toList());
+        List<K> remove_queue = stream().filter(o -> (o.get_value().get_last_used() + lifetime * 1000) > System.currentTimeMillis()).map(Pair::get_key).collect(Collectors.toList());
         remove_queue.forEach(this::remove);
     }
 
@@ -91,7 +91,7 @@ public class TimedCache<K, T> implements Cache<K, T>
     @Override
     public Stream<Pair<K, CachedObject<T>>> stream()
     {
-        var list = Pair.new_list_from_map(cached_objects);
+        List<Pair<K, CachedObject<T>>> list = Pair.new_list_from_map(cached_objects);
         return list.stream();
     }
 }

@@ -59,7 +59,7 @@ public class LambdaReflection
     public static @NotNull Optional<Field> get_field(@NotNull Class<?> clazz, @NotNull String fieldName, boolean declared)
     {
         try {
-            var field = declared ? clazz.getDeclaredField(fieldName) : clazz.getField(fieldName);
+            Field field = declared ? clazz.getDeclaredField(fieldName) : clazz.getField(fieldName);
             setup_field(field);
             return Optional.of(field);
         } catch (NoSuchFieldException e) {
@@ -76,7 +76,7 @@ public class LambdaReflection
      */
     public static @NotNull Optional<Field> get_first_field_of_type(@NotNull Class<?> clazz, @NotNull Class<?> type)
     {
-        for (var field : clazz.getDeclaredFields()) {
+        for (Field field : clazz.getDeclaredFields()) {
             if (field.getType().equals(type)) {
                 setup_field(field);
                 return Optional.of(field);
@@ -95,7 +95,7 @@ public class LambdaReflection
     public static @NotNull Optional<Field> get_last_field_of_type(@NotNull Class<?> clazz, @NotNull Class<?> type)
     {
         Field field = null;
-        for (var current_field : clazz.getDeclaredFields()) {
+        for (Field current_field : clazz.getDeclaredFields()) {
             if (current_field.getType().equals(type))
                 field = current_field;
         }

@@ -1,6 +1,6 @@
 # λJcommon
 
-[![Java](https://img.shields.io/badge/language-Java%2010-9B599A.svg?style=flat-square)](http://java.com)
+[![Java](https://img.shields.io/badge/language-Java%208-9B599A.svg?style=flat-square)](http://java.com)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/AperLambda/lambdajcommon/master/LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/AperLambda/lambdajcommon.svg?style=flat-square)](https://github.com/AperLambda/lambdajcommon/issues)
 
@@ -17,15 +17,13 @@
 [![npm](https://img.shields.io/npm/v/lambdacommonjs.svg?style=flat-square)](https://www.npmjs.com/package/lambdacommonjs/)
 [![npm](https://img.shields.io/npm/dt/lambdacommonjs.svg?style=flat-square)](https://www.npmjs.com/package/lambdacommonjs/)
 
-A library written in Java 10 with common features.
+A library written in Java 8 with common features.
 
 ## Adding λJcommon to your project
 
 It's very simple!
 
 ### Gradle
-
-Note: Please see tutorials about Gradle and Java 10
 
 In your repositories declaration add:
 ```groovy
@@ -34,5 +32,5 @@ maven { url "https://aperlambda.github.io/maven" }
 
 And in your dependencies add:
 ```groovy
-compile 'org.aperlambda:lambdajcommon:1.6.3'
+compile 'org.aperlambda:lambdajcommon:1.7.0'
 ```

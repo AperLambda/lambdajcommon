@@ -18,7 +18,7 @@ import static org.aperlambda.lambdacommon.LambdaConstants.GSON_PRETTY;
  * Represents a virtual JSON configuration.
  *
  * @author LambdAurora
- * @version 1.6.0
+ * @version 1.7.0
  * @since 1.3.0
  */
 public class VirtualJsonConfig implements BaseJsonConfig
@@ -44,12 +44,12 @@ public class VirtualJsonConfig implements BaseJsonConfig
     public void set(String key, Object value)
     {
         if (key.contains(".")) {
-            var path = key.split("\\.");
+            String[] path = key.split("\\.");
             // Starts at root.
-            var current_object = config;
+            JsonObject current_object = config;
 
             for (int i = 0; i < path.length - 1; i++) {
-                var current_key = path[i];
+                String current_key = path[i];
 
                 if (!current_object.has(current_key))
                     current_object.add(current_key, new JsonObject());

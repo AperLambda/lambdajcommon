@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.Optional;
@@ -23,7 +24,7 @@ import java.util.Optional;
 /**
  * A resources manager which can save resources.
  *
- * @version 1.6.0
+ * @version 1.7.0
  */
 public class ResourcesManager
 {
@@ -71,10 +72,11 @@ public class ResourcesManager
      */
     public boolean save_resource(@NotNull InputStream input, @NotNull String path, @NotNull File dest, boolean replace)
     {
-        var out_file = new File(dest, path);
-        var parent_dir = out_file.getParentFile();
+        File out_file = new File(dest, path);
+        File parent_dir = out_file.getParentFile();
         if (!parent_dir.exists())
-            parent_dir.mkdirs();
+            if (!parent_dir.mkdirs())
+                throw new RuntimeException(new IOException("Cannot create the parent directory of the resource to save."));
 
         if (!out_file.exists() || replace) {
             try {
@@ -100,7 +102,7 @@ public class ResourcesManager
     public @Nullable InputStream get_resource(@NotNull URL url)
     {
         try {
-            var connection = url.openConnection();
+            URLConnection connection = url.openConnection();
             connection.setUseCaches(false);
             return connection.getInputStream();
         } catch (IOException e) {
@@ -110,7 +112,7 @@ public class ResourcesManager
 
     public @Nullable InputStream get_resource_from_jar(@NotNull String file)
     {
-        var url = get_resource_url_from_jar(file);
+        Optional<URL> url = get_resource_url_from_jar(file);
         return url.map(this::get_resource).orElse(null);
     }
 

@@ -57,7 +57,8 @@ public class JsonConfig extends FileConfig<JsonObject> implements BaseJsonConfig
     public void save()
     {
         if (!file.exists())
-            file.getParentFile().mkdirs();
+            if (!file.getParentFile().mkdirs())
+                throw new RuntimeException(new IOException("Cannot create the parent directory of the json configuration file."));
 
         try {
             Files.asCharSink(file, Charset.defaultCharset()).write(GSON_PRETTY.toJson(config));
@@ -70,12 +71,12 @@ public class JsonConfig extends FileConfig<JsonObject> implements BaseJsonConfig
     public void set(String key, Object value)
     {
         if (key.contains(".")) {
-            var path = key.split("\\.");
+            String[] path = key.split("\\.");
             // Starts at root.
-            var current_object = config;
+            JsonObject current_object = config;
 
             for (int i = 0; i < path.length - 1; i++) {
-                var current_key = path[i];
+                String current_key = path[i];
 
                 // Add objects to achieve the path.
                 if (!current_object.has(current_key))
@@ -114,7 +115,7 @@ public class JsonConfig extends FileConfig<JsonObject> implements BaseJsonConfig
     {
         if (path.contains(".")) {
             try {
-                var parts = path.split("\\.");
+                String[] parts = path.split("\\.");
                 // Starts at root.
                 JsonElement current_element = config;
 

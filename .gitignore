@@ -1,7 +1,7 @@
 #
-# AperLambda ignore file
+# LambdAurora's ignore file
 #
-# v0.3
+# v0.10
 
 # JetBrains
 .idea/
@@ -9,8 +9,8 @@
 ## Intellij IDEA
 out/
 ## CLion
-cmake-build-debug/
-cmake-build-release/
+cmake-build-debug*/
+cmake-build-release*/
 ## Eclipse
 eclipse
 *.launch
@@ -18,19 +18,20 @@ eclipse
 .metadata
 .classpath
 .project
+## Visual Studio
+.vs/
+CMakeSettings.json
 
 # Build system
 ## Cargo
 Cargo.lock
 ## CMake
 CMakeCache.txt
+CMakeFiles/
 ## Gradle
 .gradle/
-## Maven
-target/
 ## Node.JS
 node_modules/
-package-lock.json
 
 # Editors
 ## VSCode
@@ -39,7 +40,26 @@ package-lock.json
 # Logging
 logs/
 
+# Languages
+## Python
+__pycache__/
+## Rust
+**/*.rs.bk
+
+# OS
+## Windows
+desktop.ini
+
+# File types
+*.dll
+*.so
+*.dylib
+*.lib
+lib*.a
+
 # Common
 bin/
 build/
+dist/
 run/
+target/

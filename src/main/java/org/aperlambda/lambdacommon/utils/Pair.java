@@ -25,7 +25,7 @@ import java.util.stream.Stream;
  *
  * @param <K> The type of the key.
  * @param <V> The type of the value.
- * @version 1.6.0
+ * @version 1.7.0
  */
 public final class Pair<K, V> implements Serializable
 {
@@ -159,14 +159,13 @@ public final class Pair<K, V> implements Serializable
 
         Pair<?, ?> pair = (Pair<?, ?>) o;
 
-        return (_key != null ? _key.equals(pair._key) : pair._key == null) &&
-                (_value != null ? _value.equals(pair._value) : pair._value == null);
+        return Objects.equals(_key, pair._key) && Objects.equals(_value, pair._value);
     }
 
     @Override
     public int hashCode()
     {
-        int result = _key != null ? _key.hashCode() : 0;
+        int result = _key.hashCode();
         result = 31 * result + (_value != null ? _value.hashCode() : 0);
         return result;
     }
@@ -185,14 +184,14 @@ public final class Pair<K, V> implements Serializable
         @Override
         public JsonElement serialize(Pair<?, ?> src, Type typeOfSrc, JsonSerializationContext context)
         {
-            var json = new JsonObject();
-            var key = new JsonObject();
+            JsonObject json = new JsonObject();
+            JsonObject key = new JsonObject();
             key.addProperty("type", src.get_key().getClass().getName());
             key.add("data", context.serialize(src.get_key()));
             json.add("key", key);
-            var value = src.get_value();
+            Object value = src.get_value();
             if (value != null) {
-                var json_value = new JsonObject();
+                JsonObject json_value = new JsonObject();
                 json_value.addProperty("type", value.getClass().getName());
                 json_value.add("data", context.serialize(value));
                 json.add("value", json_value);
@@ -205,19 +204,19 @@ public final class Pair<K, V> implements Serializable
         {
             if (!(json instanceof JsonObject))
                 throw new JsonParseException("Cannot parse Pair<?, ?>: the json must be an object!");
-            var obj = (JsonObject) json;
+            JsonObject obj = (JsonObject) json;
             if (!obj.has("key") || !obj.get("key").isJsonObject())
                 throw new JsonParseException("Key is not present or is malformed.");
-            var json_key = obj.getAsJsonObject("key");
+            JsonObject json_key = obj.getAsJsonObject("key");
             try {
-                var type = Class.forName(json_key.get("type").getAsString());
-                var key = context.deserialize(json_key.get("data"), type);
+                Class<?> type = Class.forName(json_key.get("type").getAsString());
+                Object key = context.deserialize(json_key.get("data"), type);
 
                 if (!obj.has("value"))
                     return Pair.of(key, null);
-                var json_value = obj.getAsJsonObject("value");
-                var value_type = Class.forName(json_value.get("type").getAsString());
-                var value = context.deserialize(json_value.get("data"), value_type);
+                JsonObject json_value = obj.getAsJsonObject("value");
+                Class<?> value_type = Class.forName(json_value.get("type").getAsString());
+                Object value = context.deserialize(json_value.get("data"), value_type);
                 return Pair.of(key, value);
             } catch (ClassNotFoundException e) {
                 throw new JsonParseException(e);

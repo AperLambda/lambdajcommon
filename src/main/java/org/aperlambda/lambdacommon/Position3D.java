@@ -15,6 +15,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Represents a position in a 3 dimensions coordinate system.
  *
+ * @version 1.7.0
  * @see Position
  * @see Position2D
  */
@@ -62,7 +63,7 @@ public class Position3D extends Position2D
     @Override
     public JsonObject to_json()
     {
-        var json = super.to_json();
+        JsonObject json = super.to_json();
         json.addProperty("z", z);
         return json;
     }

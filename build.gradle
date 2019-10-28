@@ -1,21 +1,16 @@
-plugins {
-    id 'org.gradle.java.experimental-jigsaw' version '0.1.1'
-}
-
 apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
 
 group = 'org.aperlambda'
-version = '1.6.3'
-description = 'A library written in Java 10 with common features.'
+version = '1.7.0'
+description = 'A library written in Java 8 with common features.'
 
-sourceCompatibility = 10
+sourceCompatibility = 8
 
 ext.moduleName = 'org.aperlambda.lambdacommon'
 
-javaModule.name = 'org.aperlambda.lambdacommon'
 compileJava.options.encoding = 'UTF-8'
 
 repositories {
