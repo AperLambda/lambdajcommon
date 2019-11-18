@@ -110,3 +110,13 @@
 ### 1.6.2
 
  - Added `org.aperlambda.lambdajcommon.utils.Cancellable`.
+ 
+## 1.7.0 - Java 8?
+
+ - Reverted to Java 8 (temporary).
+ 
+### 1.7.1
+
+To avoid confusion, somethings got renamed.
+ - Renamed `ResourceName` to `Identifier`.
+ - Renamed `ResourceNameable` to `Identifiable`. 

@@ -7,41 +7,42 @@
  * see the LICENSE file.
  */
 
-package org.aperlambda.lambdacommon.resources;
+package org.aperlambda.lambdacommon;
 
 import org.aperlambda.lambdacommon.utils.Nameable;
 import com.google.gson.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Type;
+import java.util.Objects;
 
 /**
- * Represents a resource location.
+ * Represents an identifier.
  */
-public class ResourceName implements Nameable
+public class Identifier implements Nameable
 {
     protected final String domain;
     protected final String name;
 
-    public ResourceName(String resource)
+    public Identifier(String resource)
     {
-        String[] res = getInTwoParts(resource);
+        String[] res = get_in_two_parts(resource);
         domain = res[0];
         name = res[1];
     }
 
-    public ResourceName(String domain, @NotNull String name)
+    public Identifier(String domain, @NotNull String name)
     {
         this.domain = domain;
         this.name = name;
     }
 
-    public ResourceName(ResourceName resourceName, String name)
+    public Identifier(Identifier identifier, String name)
     {
-        this(resourceName.domain, mergePath(resourceName.name, name));
+        this(identifier.domain, merge_path(identifier.name, name));
     }
 
-    private static String mergePath(String parent, String child)
+    private static String merge_path(String parent, String child)
     {
         String merged = parent;
         if (parent.endsWith("/") || child.startsWith("/"))
@@ -51,7 +52,7 @@ public class ResourceName implements Nameable
         return merged;
     }
 
-    private static String[] getInTwoParts(String o)
+    private static String[] get_in_two_parts(String o)
     {
         int separator_index = o.indexOf(':');
         if (separator_index <= 0)
@@ -60,11 +61,11 @@ public class ResourceName implements Nameable
     }
 
     /**
-     * Gets the domain of the resource.
+     * Gets the namespace of this identifier.
      *
-     * @return The domain of the resource.
+     * @return The namespace of this identifier.
      */
-    public String get_domain()
+    public String get_namespace()
     {
         return domain;
     }
@@ -76,14 +77,14 @@ public class ResourceName implements Nameable
     }
 
     /**
-     * Creates a new {@code ResourceName} from this resource location.
+     * Creates a new {@code Identifier} from this resource location.
      *
      * @param path The path to append.
-     * @return The new {@code ResourceName} with the appended path.
+     * @return The new {@code Identifier} with the appended path.
      */
-    public ResourceName sub(String path)
+    public Identifier sub(String path)
     {
-        return new ResourceName(this, path);
+        return new Identifier(this, path);
     }
 
     @Override
@@ -98,10 +99,9 @@ public class ResourceName implements Nameable
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ResourceName that = (ResourceName) o;
+        Identifier that = (Identifier) o;
 
-        return (domain != null ? domain.equals(that.domain) : that.domain == null) &&
-                (name != null ? name.equals(that.name) : that.name == null);
+        return (Objects.equals(domain, that.domain)) && (Objects.equals(name, that.name));
     }
 
     @Override
@@ -112,27 +112,27 @@ public class ResourceName implements Nameable
         return result;
     }
 
-    public static final ResourceName RESOURCE_INVALID   = new ResourceName("common", "invalid");
-    public static final ResourceName RESOURCE_NOT_FOUND = new ResourceName("common", "404");
+    public static final Identifier IDENTIFIER_INVALID   = new Identifier("common", "invalid");
+    public static final Identifier IDENTIFIER_NOT_FOUND = new Identifier("common", "404");
 
     /**
-     * Represents the JSON serializer and deserializer of {@link ResourceName}.
+     * Represents the JSON serializer and deserializer of {@link Identifier}.
      */
-    public static class ResourceNameJsonSerializer implements JsonDeserializer<ResourceName>, JsonSerializer<ResourceName>
+    public static class ResourceNameJsonSerializer implements JsonDeserializer<Identifier>, JsonSerializer<Identifier>
     {
-        public ResourceName deserialize(JsonElement json, Type type, JsonDeserializationContext context) throws
+        public Identifier deserialize(JsonElement json, Type type, JsonDeserializationContext context) throws
                 JsonParseException
         {
             if (json.isJsonPrimitive())
-                return new ResourceName(json.getAsString());
+                return new Identifier(json.getAsString());
             else
                 throw new JsonSyntaxException(
                         "Expected resource name to be a string, was " + json.getClass().getSimpleName());
         }
 
-        public JsonElement serialize(ResourceName resourceName, Type type, JsonSerializationContext context)
+        public JsonElement serialize(Identifier identifier, Type type, JsonSerializationContext context)
         {
-            return new JsonPrimitive(resourceName.toString());
+            return new JsonPrimitive(identifier.toString());
         }
     }
 }

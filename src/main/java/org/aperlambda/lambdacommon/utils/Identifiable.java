@@ -9,27 +9,27 @@
 
 package org.aperlambda.lambdacommon.utils;
 
-import org.aperlambda.lambdacommon.resources.ResourceName;
+import org.aperlambda.lambdacommon.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * Represents an object with a resource name.
  *
- * @version 1.6.1
+ * @version 1.7.1
  * @since 1.4.6
  */
-public interface ResourceNameable extends Nameable
+public interface Identifiable extends Nameable
 {
     /**
      * Gets the resource name of the object.
      *
      * @return The resource name of the object.
      */
-    @NotNull ResourceName get_resource_name();
+    @NotNull Identifier get_identifier();
 
     @Override
     default @NotNull String get_name()
     {
-        return get_resource_name().get_name();
+        return get_identifier().get_name();
     }
 }

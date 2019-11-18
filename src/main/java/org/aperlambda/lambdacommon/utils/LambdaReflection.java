@@ -18,7 +18,7 @@ import java.util.Optional;
 /**
  * An utility class for Java Reflection.
  *
- * @version 1.6.0
+ * @version 1.7.1
  * @since 1.1.0
  */
 public class LambdaReflection
@@ -198,6 +198,7 @@ public class LambdaReflection
      */
     public static @Nullable Object invoke_method(@Nullable Object object, @NotNull Method method, Object... arguments)
     {
+        method.setAccessible(true);
         try {
             return method.invoke(object, arguments);
         } catch (IllegalAccessException | InvocationTargetException e) {
@@ -243,6 +244,7 @@ public class LambdaReflection
 
     public static <T> @Nullable T new_instance(@NotNull Constructor<T> constructor, Object... arguments)
     {
+        constructor.setAccessible(true);
         try {
             return constructor.newInstance(arguments);
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {

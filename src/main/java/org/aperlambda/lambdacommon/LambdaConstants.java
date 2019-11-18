@@ -12,7 +12,6 @@ package org.aperlambda.lambdacommon;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
-import org.aperlambda.lambdacommon.resources.ResourceName;
 import org.aperlambda.lambdacommon.utils.Pair;
 
 import java.awt.*;
@@ -22,8 +21,8 @@ public class LambdaConstants
     /*
         Resources
      */
-    public static final ResourceName RESOURCE_INVALID   = ResourceName.RESOURCE_INVALID;
-    public static final ResourceName RESOURCE_NOT_FOUND = ResourceName.RESOURCE_NOT_FOUND;
+    public static final Identifier IDENTIFIER_INVALID   = Identifier.IDENTIFIER_INVALID;
+    public static final Identifier IDENTIFIER_NOT_FOUND = Identifier.IDENTIFIER_NOT_FOUND;
 
     /*
         Colors
@@ -34,7 +33,7 @@ public class LambdaConstants
         JSON
      */
     private static final GsonBuilder BASE_GSON   = new GsonBuilder()
-            .registerTypeHierarchyAdapter(ResourceName.class, new ResourceName.ResourceNameJsonSerializer())
+            .registerTypeHierarchyAdapter(Identifier.class, new Identifier.ResourceNameJsonSerializer())
             .registerTypeHierarchyAdapter(Pair.class, new Pair.JsonPairSerializer())
             .disableHtmlEscaping();
     public static final  Gson        GSON        = BASE_GSON.create();
