@@ -126,3 +126,7 @@ To avoid confusion, somethings got renamed.
 Maths!
  - Added 2D and 3D int vectors.
  - Added `MathHelper` class.
+
+### 1.7.3
+
+ - Fixed dependencies.
