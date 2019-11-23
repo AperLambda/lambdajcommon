@@ -119,4 +119,10 @@
 
 To avoid confusion, somethings got renamed.
  - Renamed `ResourceName` to `Identifier`.
- - Renamed `ResourceNameable` to `Identifiable`. 
+ - Renamed `ResourceNameable` to `Identifiable`.
+
+### 1.7.2
+
+Maths!
+ - Added 2D and 3D int vectors.
+ - Added `MathHelper` class.
