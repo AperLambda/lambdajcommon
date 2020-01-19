@@ -1,5 +1,5 @@
 /*
- * Copyright © 2019 LambdAurora <aurora42lambda@gmail.com>
+ * Copyright © 2020 LambdAurora <aurora42lambda@gmail.com>
  *
  * This file is part of λjcommon.
  *
@@ -118,7 +118,7 @@ public class Identifier implements Nameable
     /**
      * Represents the JSON serializer and deserializer of {@link Identifier}.
      */
-    public static class ResourceNameJsonSerializer implements JsonDeserializer<Identifier>, JsonSerializer<Identifier>
+    public static class IdentifierJsonSerializer implements JsonDeserializer<Identifier>, JsonSerializer<Identifier>
     {
         public Identifier deserialize(JsonElement json, Type type, JsonDeserializationContext context) throws
                 JsonParseException

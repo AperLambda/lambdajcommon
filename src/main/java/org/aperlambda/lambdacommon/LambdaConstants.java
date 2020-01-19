@@ -1,5 +1,5 @@
 /*
- * Copyright © 2018 AperLambda <aper.entertainment@gmail.com>
+ * Copyright © 2020 LambdAurora <aurora42lambda@gmail.com>
  *
  * This file is part of λjcommon.
  *
@@ -33,7 +33,7 @@ public class LambdaConstants
         JSON
      */
     private static final GsonBuilder BASE_GSON   = new GsonBuilder()
-            .registerTypeHierarchyAdapter(Identifier.class, new Identifier.ResourceNameJsonSerializer())
+            .registerTypeHierarchyAdapter(Identifier.class, new Identifier.IdentifierJsonSerializer())
             .registerTypeHierarchyAdapter(Pair.class, new Pair.JsonPairSerializer())
             .disableHtmlEscaping();
     public static final  Gson        GSON        = BASE_GSON.create();
