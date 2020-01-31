@@ -134,3 +134,11 @@ Maths!
 ### 1.7.4
 
  - Added `Predicates`.
+ 
+### 1.7.5
+
+ - Added `Predicates#always_true`
+ - Added `Predicates#always_false`
+ - Added `Predicates#pair_always_true`
+ - Added `Predicates#pair_always_false`
+ - Added `PairPredicate` equivalents in `Predicates`.
