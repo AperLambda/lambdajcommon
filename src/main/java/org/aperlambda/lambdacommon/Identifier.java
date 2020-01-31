@@ -26,9 +26,9 @@ public class Identifier implements Nameable
 
     public Identifier(String resource)
     {
-        String[] res = get_in_two_parts(resource);
-        domain = res[0];
-        name = res[1];
+        String[] res = getInTwoParts(resource);
+        this.domain = res[0];
+        this.name = res[1];
     }
 
     public Identifier(String domain, @NotNull String name)
@@ -39,10 +39,10 @@ public class Identifier implements Nameable
 
     public Identifier(Identifier identifier, String name)
     {
-        this(identifier.domain, merge_path(identifier.name, name));
+        this(identifier.domain, mergePath(identifier.name, name));
     }
 
-    private static String merge_path(String parent, String child)
+    private static String mergePath(String parent, String child)
     {
         String merged = parent;
         if (parent.endsWith("/") || child.startsWith("/"))
@@ -52,12 +52,12 @@ public class Identifier implements Nameable
         return merged;
     }
 
-    private static String[] get_in_two_parts(String o)
+    private static String[] getInTwoParts(String o)
     {
-        int separator_index = o.indexOf(':');
-        if (separator_index <= 0)
+        int index = o.indexOf(':');
+        if (index <= 0)
             throw new IllegalArgumentException("The given string isn't a valid resource name!");
-        return new String[]{o.substring(0, separator_index), o.substring(separator_index + 1)};
+        return new String[]{o.substring(0, index), o.substring(index + 1)};
     }
 
     /**
@@ -65,13 +65,13 @@ public class Identifier implements Nameable
      *
      * @return The namespace of this identifier.
      */
-    public String get_namespace()
+    public String getNamespace()
     {
         return domain;
     }
 
     @Override
-    public @NotNull String get_name()
+    public @NotNull String getName()
     {
         return name;
     }

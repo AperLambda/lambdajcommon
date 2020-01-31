@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
  *
  * @param <C> The configuration object type.
  * @author LambdAurora
- * @version 1.6.0
+ * @version 1.8.0
  * @since 1.3.0
  */
 public interface Config<C>
@@ -31,7 +31,7 @@ public interface Config<C>
     default @Nullable
     String get(String key)
     {
-        return get(key, (String) null);
+        return this.get(key, (String) null);
     }
 
     /**
@@ -43,7 +43,7 @@ public interface Config<C>
      */
     default String get(String key, String def)
     {
-        return get(key, def, String.class);
+        return this.get(key, def, String.class);
     }
 
     /**
@@ -66,7 +66,7 @@ public interface Config<C>
      */
     default void set(String key, Serializable serializable)
     {
-        set(key, serializable.serialize());
+        this.set(key, serializable.serialize());
     }
 
     /**
@@ -80,17 +80,17 @@ public interface Config<C>
     default @Nullable
     String at(String path)
     {
-        return at(path, (String) null);
+        return this.at(path, (String) null);
     }
 
     default String at(String path, String def)
     {
-        return at(path, def, String.class);
+        return this.at(path, def, String.class);
     }
 
     default <T> T at(String path, Class<T> type)
     {
-        return at(path, null, type);
+        return this.at(path, null, type);
     }
 
     /**
@@ -111,12 +111,12 @@ public interface Config<C>
      *
      * @return True if virtual else false.
      */
-    boolean is_virtual();
+    boolean isVirtual();
 
     /**
      * Gets the configuration object.
      *
      * @return The configuration object.
      */
-    C get_config();
+    C getConfig();
 }

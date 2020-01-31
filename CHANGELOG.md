@@ -142,3 +142,7 @@ Maths!
  - Added `Predicates#pair_always_true`
  - Added `Predicates#pair_always_false`
  - Added `PairPredicate` equivalents in `Predicates`.
+ 
+## 1.8.0 - camelCase
+
+ - Refactored everything to camelCase.

@@ -20,7 +20,7 @@ import java.util.stream.Stream;
  * Represents a cache.
  *
  * @param <T> The typename of the stored objects.
- * @version 1.6.0
+ * @version 1.8.0
  * @since 1.5.0
  */
 public interface Cache<K, T>
@@ -38,7 +38,7 @@ public interface Cache<K, T>
      */
     default void add(K key, T object)
     {
-        add(key, object, null);
+        this.add(key, object, null);
     }
 
     /**
@@ -64,9 +64,9 @@ public interface Cache<K, T>
      * @param object The object to check.
      * @return True if the cache contains the object, else false.
      */
-    default boolean has_object(T object)
+    default boolean hasObject(T object)
     {
-        return stream().anyMatch(o -> o.equals(object));
+        return this.stream().anyMatch(o -> o.equals(object));
     }
 
     /**

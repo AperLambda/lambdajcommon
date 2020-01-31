@@ -1,5 +1,5 @@
 /*
- * Copyright © 2019 LambdAurora <aurora42lambda@gmail.com>
+ * Copyright © 2020 LambdAurora <aurora42lambda@gmail.com>
  *
  * This file is part of λjcommon.
  *
@@ -19,7 +19,7 @@ public interface Serializable
 {
     default @NotNull String serialize()
     {
-        return to_json().toString();
+        return this.toJson().toString();
     }
 
     /**
@@ -27,5 +27,5 @@ public interface Serializable
      *
      * @return The serialized object.
      */
-    @NotNull JsonObject to_json();
+    @NotNull JsonObject toJson();
 }

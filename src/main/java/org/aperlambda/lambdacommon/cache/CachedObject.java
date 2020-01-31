@@ -19,25 +19,25 @@ import java.util.function.Consumer;
  * Represents a object which is cached.
  *
  * @param <T> The typename of the stored object.
- * @version 1.6.0
+ * @version 1.8.0
  * @since 1.5.0
  */
 public class CachedObject<T>
 {
-    protected                long                  last_used;
+    protected                long                  lastUsed;
     protected @NotNull       T                     object;
-    protected final @NotNull Optional<Consumer<T>> on_destroy;
+    protected final @NotNull Optional<Consumer<T>> onDestroy;
 
     public CachedObject(@NotNull T object)
     {
         this(object, null);
     }
 
-    public CachedObject(@NotNull T object, @Nullable Consumer<T> on_destroy)
+    public CachedObject(@NotNull T object, @Nullable Consumer<T> onDestroy)
     {
-        last_used = System.currentTimeMillis();
+        this.lastUsed = System.currentTimeMillis();
         this.object = object;
-        this.on_destroy = Optional.ofNullable(on_destroy);
+        this.onDestroy = Optional.ofNullable(onDestroy);
     }
 
     /**
@@ -45,9 +45,9 @@ public class CachedObject<T>
      *
      * @return The last used time in milliseconds.
      */
-    public long get_last_used()
+    public long getLastUsed()
     {
-        return this.last_used;
+        return this.lastUsed;
     }
 
     /**
@@ -55,7 +55,7 @@ public class CachedObject<T>
      *
      * @return The cached object.
      */
-    public @NotNull T get_object()
+    public @NotNull T getObject()
     {
         return this.object;
     }
@@ -67,8 +67,8 @@ public class CachedObject<T>
      */
     public @NotNull T update()
     {
-        last_used = System.currentTimeMillis();
-        return get_object();
+        this.lastUsed = System.currentTimeMillis();
+        return getObject();
     }
 
     /**
@@ -76,6 +76,6 @@ public class CachedObject<T>
      */
     public void destroy()
     {
-        this.on_destroy.ifPresent(func -> func.accept(this.object));
+        this.onDestroy.ifPresent(func -> func.accept(this.object));
     }
 }

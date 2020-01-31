@@ -21,7 +21,7 @@ import java.util.Properties;
  * Represents a properties configuration.
  *
  * @author lambdaurora
- * @version 1.6.0
+ * @version 1.8.0
  * @since 1.4.10
  */
 public class PropertiesConfig extends FileConfig<Properties>
@@ -43,7 +43,7 @@ public class PropertiesConfig extends FileConfig<Properties>
     public void load()
     {
         try {
-            properties.load(Files.newInputStream(file.toPath()));
+            this.properties.load(Files.newInputStream(file.toPath()));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -53,7 +53,7 @@ public class PropertiesConfig extends FileConfig<Properties>
     public void save()
     {
         try {
-            properties.store(Files.newOutputStream(file.toPath()), comments);
+            this.properties.store(Files.newOutputStream(file.toPath()), comments);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -63,7 +63,7 @@ public class PropertiesConfig extends FileConfig<Properties>
     @Override
     public <T> T get(String key, T def, Class<T> type)
     {
-        Object value = properties.getOrDefault(key, def);
+        Object value = this.properties.getOrDefault(key, def);
         if (value.equals(def))
             return def;
         if (value instanceof String)
@@ -81,12 +81,12 @@ public class PropertiesConfig extends FileConfig<Properties>
     public void set(String key, Object value)
     {
         if (value instanceof Boolean)
-            properties.put(key, value);
+            this.properties.put(key, value);
         else
-            properties.setProperty(key, LambdaConstants.GSON.toJson(value));
+            this.properties.setProperty(key, LambdaConstants.GSON.toJson(value));
 
-        if (auto_save)
-            save();
+        if (this.autoSave)
+            this.save();
     }
 
     @Override
@@ -100,9 +100,9 @@ public class PropertiesConfig extends FileConfig<Properties>
      *
      * @return The comments.
      */
-    public String get_comments()
+    public String getComments()
     {
-        return comments;
+        return this.comments;
     }
 
     /**
@@ -110,14 +110,14 @@ public class PropertiesConfig extends FileConfig<Properties>
      *
      * @param comments The comments of the configuration.
      */
-    public void set_comments(String comments)
+    public void setComments(String comments)
     {
         this.comments = comments;
     }
 
     @Override
-    public Properties get_config()
+    public Properties getConfig()
     {
-        return properties;
+        return this.properties;
     }
 }

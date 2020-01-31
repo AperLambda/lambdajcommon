@@ -26,7 +26,7 @@ import static org.aperlambda.lambdacommon.LambdaConstants.JSON_PARSER;
  * Represents a JSON configuration stored in a file.
  *
  * @author LambdAurora
- * @version 1.6.0
+ * @version 1.8.0
  * @since 1.3.0
  */
 public class JsonConfig extends FileConfig<JsonObject> implements BaseJsonConfig
@@ -47,7 +47,7 @@ public class JsonConfig extends FileConfig<JsonObject> implements BaseJsonConfig
     public void load()
     {
         try {
-            config = JSON_PARSER.parse(Files.asCharSource(file, Charset.defaultCharset()).read()).getAsJsonObject();
+            this.config = JSON_PARSER.parse(Files.asCharSource(file, Charset.defaultCharset()).read()).getAsJsonObject();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -56,8 +56,8 @@ public class JsonConfig extends FileConfig<JsonObject> implements BaseJsonConfig
     @Override
     public void save()
     {
-        if (!file.exists())
-            if (!file.getParentFile().mkdirs())
+        if (!this.file.exists())
+            if (!this.file.getParentFile().mkdirs())
                 throw new RuntimeException(new IOException("Cannot create the parent directory of the json configuration file."));
 
         try {
@@ -73,69 +73,69 @@ public class JsonConfig extends FileConfig<JsonObject> implements BaseJsonConfig
         if (key.contains(".")) {
             String[] path = key.split("\\.");
             // Starts at root.
-            JsonObject current_object = config;
+            JsonObject currentObject = this.config;
 
             for (int i = 0; i < path.length - 1; i++) {
-                String current_key = path[i];
+                String currentKey = path[i];
 
                 // Add objects to achieve the path.
-                if (!current_object.has(current_key))
-                    current_object.add(current_key, new JsonObject());
+                if (!currentObject.has(currentKey))
+                    currentObject.add(currentKey, new JsonObject());
 
-                current_object = current_object.getAsJsonObject(current_key);
+                currentObject = currentObject.getAsJsonObject(currentKey);
             }
 
-            current_object.add(path[path.length - 1], GSON_PRETTY.toJsonTree(value));
+            currentObject.add(path[path.length - 1], GSON_PRETTY.toJsonTree(value));
         } else
-            config.add(key, GSON_PRETTY.toJsonTree(value));
+            this.config.add(key, GSON_PRETTY.toJsonTree(value));
 
-        if (auto_save)
+        if (this.autoSave)
             save();
     }
 
     @Override
     public <T> T at(String path, T def, Class<T> type)
     {
-        return json_at(config, path, def, type);
+        return jsonAt(this.config, path, def, type);
     }
 
     @Override
     public <T> T get(String key, T def, Class<T> type)
     {
-        return json_get(config, key, def, type);
+        return jsonGet(this.config, key, def, type);
     }
 
-    static <T> T json_get(JsonObject config, String key, T def, Class<T> type)
+    static <T> T jsonGet(JsonObject config, String key, T def, Class<T> type)
     {
         T value = GSON_PRETTY.fromJson(config.get(key), type);
         return value == null ? def : value;
     }
 
-    static <T> T json_at(JsonObject config, String path, T def, Class<T> type)
+    static <T> T jsonAt(JsonObject config, String path, T def, Class<T> type)
     {
         if (path.contains(".")) {
             try {
                 String[] parts = path.split("\\.");
                 // Starts at root.
-                JsonElement current_element = config;
+                JsonElement currentElement = config;
 
                 for (int i = 0; i < parts.length - 1; i++) {
-                    current_element = current_element.getAsJsonObject().get(parts[i]);
+                    currentElement = currentElement.getAsJsonObject().get(parts[i]);
 
                     // Cannot go further...
-                    if (current_element == null)
+                    if (currentElement == null)
                         return def;
-                    else if (!current_element.isJsonObject())
+                    else if (!currentElement.isJsonObject())
                         throw new IllegalArgumentException("Field '" + parts[i] + "' isn't an object!");
                 }
 
-                T value = GSON_PRETTY.fromJson(current_element.getAsJsonObject().get(parts[parts.length - 1]), type);
+                T value = GSON_PRETTY.fromJson(currentElement.getAsJsonObject().get(parts[parts.length - 1]), type);
                 return value == null ? def : value;
             } catch (JsonParseException e) {
                 return def;
             }
         } else
-            return json_get(config, path, def, type);
+            return jsonGet(config, path, def, type);
     }
 
     /**
@@ -144,8 +144,8 @@ public class JsonConfig extends FileConfig<JsonObject> implements BaseJsonConfig
      * @return The root JSON Object of the config.
      */
     @Override
-    public JsonObject get_config()
+    public JsonObject getConfig()
     {
-        return config;
+        return this.config;
     }
 }

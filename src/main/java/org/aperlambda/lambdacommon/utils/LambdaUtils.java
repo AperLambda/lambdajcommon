@@ -1,5 +1,5 @@
 /*
- * Copyright © 2019 LambdAurora <aurora42lambda@gmail.com>
+ * Copyright © 2020 LambdAurora <aurora42lambda@gmail.com>
  *
  * This file is part of λjcommon.
  *
@@ -19,7 +19,7 @@ import java.util.TimerTask;
  * Lots of utilities.
  *
  * @author LambdAurora
- * @version 1.6.0
+ * @version 1.8.0
  * @since 1.5.0
  */
 public class LambdaUtils
@@ -35,7 +35,7 @@ public class LambdaUtils
      * @param value The String value.
      * @return An {@code Optional} value, empty: if the value is null or if the value is empty.
      */
-    public static Optional<String> make_optional_from_string(@Nullable String value)
+    public static Optional<String> makeOptionalFromString(@Nullable String value)
     {
         return Optional.ofNullable(value).filter(str -> !str.isEmpty());
     }
@@ -46,7 +46,7 @@ public class LambdaUtils
      * @param value A {@code String} that represents an integer.
      * @return An {@code Optional} integer.
      */
-    public static Optional<Integer> parse_optional_int_from_string(@NotNull String value)
+    public static Optional<Integer> parseOptionalIntFromString(@NotNull String value)
     {
         try {
             return Optional.of(Integer.parseInt(value));
@@ -61,7 +61,7 @@ public class LambdaUtils
      * @param value A {@code String} that represents an integer.
      * @return An {@code integer}.
      */
-    public static int parse_int_from_string(@NotNull String value)
+    public static int parseIntFromString(@NotNull String value)
     {
         try {
             return Integer.parseInt(value);
@@ -76,7 +76,7 @@ public class LambdaUtils
      * @param runnable Code to run.
      * @return A new {@code TimerTask} which run {@code Runnable} when {@code run} function called.
      */
-    public static TimerTask new_timer_task_from_lambda(Runnable runnable)
+    public static TimerTask newTimerTaskFromLambda(Runnable runnable)
     {
         return new TimerTask()
         {

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2019 LambdAurora <aurora42lambda@gmail.com>
+ * Copyright © 2020 LambdAurora <aurora42lambda@gmail.com>
  *
  * This file is part of λjcommon.
  *
@@ -23,5 +23,5 @@ public interface Position extends Serializable, Element
      *
      * @return The number of dimensions of the position.
      */
-    int get_dimensions();
+    int getDimensions();
 }

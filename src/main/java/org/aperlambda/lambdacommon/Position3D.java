@@ -1,5 +1,5 @@
 /*
- * Copyright © 2019 LambdAurora <aurora42lambda@gmail.com>
+ * Copyright © 2020 LambdAurora <aurora42lambda@gmail.com>
  *
  * This file is part of λjcommon.
  *
@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Represents a position in a 3 dimensions coordinate system.
  *
- * @version 1.7.0
+ * @version 1.8.0
  * @see Position
  * @see Position2D
  */
@@ -43,27 +43,27 @@ public class Position3D extends Position2D
         this.z = z;
     }
 
-    public int get_z()
+    public int getZ()
     {
         return z;
     }
 
-    public void set_z(int z)
+    public void setZ(int z)
     {
         this.z = z;
     }
 
     @Override
-    public int get_dimensions()
+    public int getDimensions()
     {
         return 3;
     }
 
     @NotNull
     @Override
-    public JsonObject to_json()
+    public JsonObject toJson()
     {
-        JsonObject json = super.to_json();
+        JsonObject json = super.toJson();
         json.addProperty("z", z);
         return json;
     }

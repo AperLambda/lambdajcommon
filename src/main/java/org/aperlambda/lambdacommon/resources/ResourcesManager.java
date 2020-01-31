@@ -1,5 +1,5 @@
 /*
- * Copyright © 2019 LambdAurora <aurora42lambda@gmail.com>
+ * Copyright © 2020 LambdAurora <aurora42lambda@gmail.com>
  *
  * This file is part of λjcommon.
  *
@@ -24,7 +24,7 @@ import java.util.Optional;
 /**
  * A resources manager which can save resources.
  *
- * @version 1.7.0
+ * @version 1.8.0
  */
 public class ResourcesManager
 {
@@ -35,7 +35,7 @@ public class ResourcesManager
      *
      * @return The default implementation.
      */
-    public static @NotNull ResourcesManager get_default_resources_manager()
+    public static @NotNull ResourcesManager getDefaultResourcesManager()
     {
         return DEFAULT_RESOURCES_MANAGER;
     }
@@ -48,17 +48,17 @@ public class ResourcesManager
      * @param replace True if replace the existing file, else false.
      * @return True if success, else false.
      */
-    public boolean save_resource(@NotNull URL path, @NotNull File dest, boolean replace)
+    public boolean saveResource(@NotNull URL path, @NotNull File dest, boolean replace)
     {
         if (path.getPath() == null)
             return false;
 
-        InputStream is = get_resource(path);
+        InputStream is = getResource(path);
 
         if (is == null)
             return false;
 
-        return save_resource(is, path.getPath(), dest, replace);
+        return saveResource(is, path.getPath(), dest, replace);
     }
 
     /**
@@ -70,17 +70,17 @@ public class ResourcesManager
      * @param replace True if replace existing file, else false.
      * @return True if success, else false.
      */
-    public boolean save_resource(@NotNull InputStream input, @NotNull String path, @NotNull File dest, boolean replace)
+    public boolean saveResource(@NotNull InputStream input, @NotNull String path, @NotNull File dest, boolean replace)
     {
-        File out_file = new File(dest, path);
-        File parent_dir = out_file.getParentFile();
-        if (!parent_dir.exists())
-            if (!parent_dir.mkdirs())
+        File outFile = new File(dest, path);
+        File parentDir = outFile.getParentFile();
+        if (!parentDir.exists())
+            if (!parentDir.mkdirs())
                 throw new RuntimeException(new IOException("Cannot create the parent directory of the resource to save."));
 
-        if (!out_file.exists() || replace) {
+        if (!outFile.exists() || replace) {
             try {
-                Files.copy(input, out_file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                Files.copy(input, outFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
             } catch (IOException e) {
                 return false;
             }
@@ -88,18 +88,18 @@ public class ResourcesManager
         return true;
     }
 
-    public boolean save_resource_from_jar(@NotNull String path, @NotNull File dest, boolean replace)
+    public boolean saveResourceFromJar(@NotNull String path, @NotNull File dest, boolean replace)
     {
         path = path.replace('\\', '/');
-        InputStream is = get_resource_from_jar(path);
+        InputStream is = getResourceFromJar(path);
 
         if (is == null)
             return false;
 
-        return save_resource(is, path, dest, replace);
+        return saveResource(is, path, dest, replace);
     }
 
-    public @Nullable InputStream get_resource(@NotNull URL url)
+    public @Nullable InputStream getResource(@NotNull URL url)
     {
         try {
             URLConnection connection = url.openConnection();
@@ -110,13 +110,13 @@ public class ResourcesManager
         }
     }
 
-    public @Nullable InputStream get_resource_from_jar(@NotNull String file)
+    public @Nullable InputStream getResourceFromJar(@NotNull String file)
     {
-        Optional<URL> url = get_resource_url_from_jar(file);
-        return url.map(this::get_resource).orElse(null);
+        Optional<URL> url = getResourceUrlFromJar(file);
+        return url.map(this::getResource).orElse(null);
     }
 
-    public @NotNull Optional<URL> get_resource_url_from_jar(@NotNull String file)
+    public @NotNull Optional<URL> getResourceUrlFromJar(@NotNull String file)
     {
         return Optional.ofNullable(getClass().getClassLoader().getResource(file));
     }

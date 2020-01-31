@@ -16,13 +16,13 @@ import java.io.File;
  *
  * @param <C> The configuration object type.
  * @author LambdAurora
- * @version 1.4.10
+ * @version 1.8.0
  * @since 1.3.0
  */
 public abstract class FileConfig<C> implements Config<C>
 {
     protected File    file;
-    protected boolean auto_save = false;
+    protected boolean autoSave = false;
 
     public FileConfig()
     {
@@ -30,10 +30,10 @@ public abstract class FileConfig<C> implements Config<C>
 
     public FileConfig(File file)
     {
-        in(file);
+        this.in(file);
 
         if (file != null && file.exists())
-            load();
+            this.load();
     }
 
     /**
@@ -53,9 +53,9 @@ public abstract class FileConfig<C> implements Config<C>
      *
      * @return The file of the config.
      */
-    public File get_file()
+    public File getFile()
     {
-        return file;
+        return this.file;
     }
 
     /**
@@ -63,19 +63,19 @@ public abstract class FileConfig<C> implements Config<C>
      *
      * @return True if the config saves automatically else false.
      */
-    public boolean has_auto_save()
+    public boolean hasAutoSave()
     {
-        return auto_save;
+        return this.autoSave;
     }
 
     /**
      * Sets whether the configuration saves automatically after a value set.
      *
-     * @param auto_save True if the config saves automatically else false.
+     * @param autoSave True if the config saves automatically else false.
      */
-    public void set_auto_save(boolean auto_save)
+    public void setAutoSave(boolean autoSave)
     {
-        this.auto_save = auto_save;
+        this.autoSave = autoSave;
     }
 
     public abstract void load();
@@ -83,7 +83,7 @@ public abstract class FileConfig<C> implements Config<C>
     public abstract void save();
 
     @Override
-    public boolean is_virtual()
+    public boolean isVirtual()
     {
         return false;
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2019 LambdAurora <aurora42lambda@gmail.com>
+ * Copyright © 2020 LambdAurora <aurora42lambda@gmail.com>
  *
  * This file is part of λjcommon.
  *
@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Represents an object with a resource name.
  *
- * @version 1.7.1
+ * @version 1.8.0
  * @since 1.4.6
  */
 public interface Identifiable extends Nameable
@@ -25,11 +25,11 @@ public interface Identifiable extends Nameable
      *
      * @return The resource name of the object.
      */
-    @NotNull Identifier get_identifier();
+    @NotNull Identifier getIdentifier();
 
     @Override
-    default @NotNull String get_name()
+    default @NotNull String getName()
     {
-        return get_identifier().get_name();
+        return this.getIdentifier().getName();
     }
 }

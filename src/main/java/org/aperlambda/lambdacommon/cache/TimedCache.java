@@ -25,16 +25,16 @@ import java.util.stream.Stream;
  * Represents a cache with a lifetime for the stored objects.
  *
  * @param <T> The typename of the stored objects.
- * @version 1.7.0
+ * @version 1.8.0
  * @since 1.5.0
  */
 public class TimedCache<K, T> implements Cache<K, T>
 {
     private final Timer                       timer          = new Timer();
     private final int                         lifetime;
-    private final HashMap<K, CachedObject<T>> cached_objects = new HashMap<>();
+    private final HashMap<K, CachedObject<T>> cachedObjects = new HashMap<>();
 
-    public static <K, T> TimedCache<K, T> of_lifetime(int lifetime)
+    public static <K, T> TimedCache<K, T> ofLifetime(int lifetime)
     {
         return new TimedCache<>(lifetime);
     }
@@ -44,7 +44,7 @@ public class TimedCache<K, T> implements Cache<K, T>
         if (lifetime <= 0)
             throw new IllegalArgumentException("Lifetime cannot be negative or null.");
         this.lifetime = lifetime;
-        timer.scheduleAtFixedRate(LambdaUtils.new_timer_task_from_lambda(this::update), lifetime * 1000, lifetime * 1000);
+        this.timer.scheduleAtFixedRate(LambdaUtils.newTimerTaskFromLambda(this::update), lifetime * 1000, lifetime * 1000);
     }
 
     /**
@@ -52,46 +52,46 @@ public class TimedCache<K, T> implements Cache<K, T>
      *
      * @return The lifetime in seconds.
      */
-    public long get_lifetime()
+    public long getLifetime()
     {
-        return lifetime;
+        return this.lifetime;
     }
 
     @Override
     public void update()
     {
-        List<K> remove_queue = stream().filter(o -> (o.get_value().get_last_used() + lifetime * 1000) > System.currentTimeMillis()).map(Pair::get_key).collect(Collectors.toList());
-        remove_queue.forEach(this::remove);
+        List<K> removeQueue = stream().filter(o -> (o.value.getLastUsed() + this.lifetime * 1000) > System.currentTimeMillis()).map(p -> p.key).collect(Collectors.toList());
+        removeQueue.forEach(this::remove);
     }
 
     @Override
     public void add(K key, T object, @Nullable Consumer<T> onDestroy)
     {
-        cached_objects.put(key, new CachedObject<>(object, onDestroy));
+        this.cachedObjects.put(key, new CachedObject<>(object, onDestroy));
     }
 
     @Override
     public boolean has(K key)
     {
-        return cached_objects.containsKey(key);
+        return this.cachedObjects.containsKey(key);
     }
 
     @Override
     public void remove(K key)
     {
-        cached_objects.remove(key);
+        this.cachedObjects.remove(key);
     }
 
     @Override
     public List<CachedObject<T>> list()
     {
-        return new ArrayList<>(cached_objects.values());
+        return new ArrayList<>(this.cachedObjects.values());
     }
 
     @Override
     public Stream<Pair<K, CachedObject<T>>> stream()
     {
-        List<Pair<K, CachedObject<T>>> list = Pair.new_list_from_map(cached_objects);
+        List<Pair<K, CachedObject<T>>> list = Pair.newListFromMap(this.cachedObjects);
         return list.stream();
     }
 }

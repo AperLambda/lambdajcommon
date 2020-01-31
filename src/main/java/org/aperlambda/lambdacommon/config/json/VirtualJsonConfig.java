@@ -18,7 +18,7 @@ import static org.aperlambda.lambdacommon.LambdaConstants.GSON_PRETTY;
  * Represents a virtual JSON configuration.
  *
  * @author LambdAurora
- * @version 1.7.0
+ * @version 1.8.0
  * @since 1.3.0
  */
 public class VirtualJsonConfig implements BaseJsonConfig
@@ -37,7 +37,7 @@ public class VirtualJsonConfig implements BaseJsonConfig
     @Override
     public <T> T get(String key, T def, Class<T> type)
     {
-        return JsonConfig.json_get(config, key, def, type);
+        return JsonConfig.jsonGet(this.config, key, def, type);
     }
 
     @Override
@@ -46,18 +46,18 @@ public class VirtualJsonConfig implements BaseJsonConfig
         if (key.contains(".")) {
             String[] path = key.split("\\.");
             // Starts at root.
-            JsonObject current_object = config;
+            JsonObject currentObject = this.config;
 
             for (int i = 0; i < path.length - 1; i++) {
-                String current_key = path[i];
+                String currentKey = path[i];
 
-                if (!current_object.has(current_key))
-                    current_object.add(current_key, new JsonObject());
+                if (!currentObject.has(currentKey))
+                    currentObject.add(currentKey, new JsonObject());
 
-                current_object = current_object.getAsJsonObject(current_key);
+                currentObject = currentObject.getAsJsonObject(currentKey);
             }
 
-            current_object.add(path[path.length - 1], GSON_PRETTY.toJsonTree(value));
+            currentObject.add(path[path.length - 1], GSON_PRETTY.toJsonTree(value));
         } else
             config.add(key, GSON_PRETTY.toJsonTree(value));
     }
@@ -65,11 +65,11 @@ public class VirtualJsonConfig implements BaseJsonConfig
     @Override
     public <T> T at(String path, T def, Class<T> type)
     {
-        return JsonConfig.json_at(config, path, def, type);
+        return JsonConfig.jsonAt(this.config, path, def, type);
     }
 
     @Override
-    public boolean is_virtual()
+    public boolean isVirtual()
     {
         return true;
     }
@@ -80,8 +80,8 @@ public class VirtualJsonConfig implements BaseJsonConfig
      * @return The root JSON Object of the config.
      */
     @Override
-    public JsonObject get_config()
+    public JsonObject getConfig()
     {
-        return config;
+        return this.config;
     }
 }

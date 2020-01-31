@@ -1,5 +1,5 @@
 /*
- * Copyright © 2019 LambdAurora <aurora42lambda@gmail.com>
+ * Copyright © 2020 LambdAurora <aurora42lambda@gmail.com>
  *
  * This file is part of λjcommon.
  *
@@ -18,11 +18,11 @@ public interface Cancellable
      * Checks whether cancelled.
      * @return True if cancelled, else false.
      */
-    boolean is_cancelled();
+    boolean isCancelled();
 
     /**
      * Sets whether cancelled or not.
      * @param cancelled True if cancelled, else false.
      */
-    void set_cancelled(boolean cancelled);
+    void setCancelled(boolean cancelled);
 }

@@ -16,10 +16,10 @@ import org.aperlambda.lambdacommon.config.Config;
  * Represents the base of a JSON configuration.
  *
  * @author lambdaurora
- * @version 1.6.0
+ * @version 1.8.0
  * @since 1.4.10
  */
 public interface BaseJsonConfig extends Config<JsonObject>
 {
-    JsonObject get_config();
+    JsonObject getConfig();
 }

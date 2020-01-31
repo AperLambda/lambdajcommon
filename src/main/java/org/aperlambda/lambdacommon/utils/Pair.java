@@ -1,5 +1,5 @@
 /*
- * Copyright © 2019 LambdAurora <aurora42lambda@gmail.com>
+ * Copyright © 2020 LambdAurora <aurora42lambda@gmail.com>
  *
  * This file is part of λjcommon.
  *
@@ -25,17 +25,23 @@ import java.util.stream.Stream;
  *
  * @param <K> The type of the key.
  * @param <V> The type of the value.
- * @version 1.7.0
+ * @version 1.8.0
  */
 public final class Pair<K, V> implements Serializable
 {
-    private final K _key;
-    private final V _value;
+    /**
+     * Represents the key of this pair.
+     */
+    public final K key;
+    /**
+     * Represents the value of this pair.
+     */
+    public final V value;
 
     public Pair(@NotNull K key, V value)
     {
-        _key = key;
-        _value = value;
+        this.key = key;
+        this.value = value;
     }
 
     /**
@@ -60,7 +66,7 @@ public final class Pair<K, V> implements Serializable
      * @param <V>   The value of the pair.
      * @return A new pair.
      */
-    public static <K, V> Pair<K, V> from_entry(Map.Entry<K, V> entry)
+    public static <K, V> Pair<K, V> fromEntry(Map.Entry<K, V> entry)
     {
         return new Pair<>(entry.getKey(), entry.getValue());
     }
@@ -73,31 +79,11 @@ public final class Pair<K, V> implements Serializable
      * @param <V> The value of the pair.
      * @return A new pair's list.
      */
-    public static <K, V> List<Pair<K, V>> new_list_from_map(Map<K, V> map)
+    public static <K, V> List<Pair<K, V>> newListFromMap(Map<K, V> map)
     {
         List<Pair<K, V>> list = new ArrayList<>();
         map.forEach((key, value) -> list.add(new Pair<>(key, value)));
         return list;
-    }
-
-    /**
-     * Gets the key for this pair.
-     *
-     * @return Key for this pair.
-     */
-    public K get_key()
-    {
-        return _key;
-    }
-
-    /**
-     * Gets the value for this pair.
-     *
-     * @return Value for this pair.
-     */
-    public V get_value()
-    {
-        return _value;
     }
 
     /**
@@ -134,10 +120,10 @@ public final class Pair<K, V> implements Serializable
      * @see Optional#map(Function)
      */
     @NotNull
-    public <N> N map_value(@NotNull Function<? super V, ? extends N> mapper)
+    public <N> N mapValue(@NotNull Function<? super V, ? extends N> mapper)
     {
         Objects.requireNonNull(mapper);
-        return mapper.apply(_value);
+        return mapper.apply(value);
     }
 
     /**
@@ -159,21 +145,21 @@ public final class Pair<K, V> implements Serializable
 
         Pair<?, ?> pair = (Pair<?, ?>) o;
 
-        return Objects.equals(_key, pair._key) && Objects.equals(_value, pair._value);
+        return Objects.equals(this.key, pair.key) && Objects.equals(this.value, pair.value);
     }
 
     @Override
     public int hashCode()
     {
-        int result = _key.hashCode();
-        result = 31 * result + (_value != null ? _value.hashCode() : 0);
+        int result = this.key.hashCode();
+        result = 31 * result + (this.value != null ? this.value.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString()
     {
-        return "Pair{key: " + _key + ", value: " + _value + '}';
+        return "Pair{key: " + this.key + ", value: " + this.value + '}';
     }
 
     /**
@@ -186,15 +172,15 @@ public final class Pair<K, V> implements Serializable
         {
             JsonObject json = new JsonObject();
             JsonObject key = new JsonObject();
-            key.addProperty("type", src.get_key().getClass().getName());
-            key.add("data", context.serialize(src.get_key()));
+            key.addProperty("type", src.key.getClass().getName());
+            key.add("data", context.serialize(src.key));
             json.add("key", key);
-            Object value = src.get_value();
+            Object value = src.value;
             if (value != null) {
-                JsonObject json_value = new JsonObject();
-                json_value.addProperty("type", value.getClass().getName());
-                json_value.add("data", context.serialize(value));
-                json.add("value", json_value);
+                JsonObject jsonValue = new JsonObject();
+                jsonValue.addProperty("type", value.getClass().getName());
+                jsonValue.add("data", context.serialize(value));
+                json.add("value", jsonValue);
             }
             return json;
         }
@@ -207,16 +193,16 @@ public final class Pair<K, V> implements Serializable
             JsonObject obj = (JsonObject) json;
             if (!obj.has("key") || !obj.get("key").isJsonObject())
                 throw new JsonParseException("Key is not present or is malformed.");
-            JsonObject json_key = obj.getAsJsonObject("key");
+            JsonObject jsonKey = obj.getAsJsonObject("key");
             try {
-                Class<?> type = Class.forName(json_key.get("type").getAsString());
-                Object key = context.deserialize(json_key.get("data"), type);
+                Class<?> type = Class.forName(jsonKey.get("type").getAsString());
+                Object key = context.deserialize(jsonKey.get("data"), type);
 
                 if (!obj.has("value"))
                     return Pair.of(key, null);
-                JsonObject json_value = obj.getAsJsonObject("value");
-                Class<?> value_type = Class.forName(json_value.get("type").getAsString());
-                Object value = context.deserialize(json_value.get("data"), value_type);
+                JsonObject jsonValue = obj.getAsJsonObject("value");
+                Class<?> valueType = Class.forName(jsonValue.get("type").getAsString());
+                Object value = context.deserialize(jsonValue.get("data"), valueType);
                 return Pair.of(key, value);
             } catch (ClassNotFoundException e) {
                 throw new JsonParseException(e);

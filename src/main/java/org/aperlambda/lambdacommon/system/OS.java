@@ -1,5 +1,5 @@
 /*
- * Copyright © 2019 LambdAurora <aurora42lambda@gmail.com>
+ * Copyright © 2020 LambdAurora <aurora42lambda@gmail.com>
  *
  * This file is part of λjcommon.
  *
@@ -26,21 +26,21 @@ public enum OS implements Nameable
     NETBSD("NetBSD"),
     UNKNOWN("Unknown", "unknown");
 
-    private String   pretty_name;
+    private String   prettyName;
     private String[] designations;
 
-    OS(String pretty_name, String... designations)
+    OS(String prettyName, String... designations)
     {
-        this.pretty_name = pretty_name;
+        this.prettyName = prettyName;
         this.designations = designations;
     }
 
-    public static OS get_current_platform()
+    public static OS getCurrentPlatform()
     {
-        String os_name = System.getProperty("os.name").toLowerCase();
+        String osName = System.getProperty("os.name").toLowerCase();
         for (OS os : values()) {
-            for (String o_str : os.designations) {
-                if (os_name.contains(o_str))
+            for (String oStr : os.designations) {
+                if (osName.contains(oStr))
                     return os;
             }
         }
@@ -49,8 +49,8 @@ public enum OS implements Nameable
 
     @NotNull
     @Override
-    public String get_name()
+    public String getName()
     {
-        return this.pretty_name;
+        return this.prettyName;
     }
 }

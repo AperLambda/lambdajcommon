@@ -17,7 +17,7 @@ import java.util.function.Predicate;
  * Represents some utility functions for {@link java.util.function.Predicate} and {@link PairPredicate}.
  *
  * @author LambdAurora
- * @version 1.7.5
+ * @version 1.8.0
  * @since 1.7.4
  */
 public class Predicates
@@ -62,7 +62,7 @@ public class Predicates
      * @param <T> The type of arguments to the specified predicate.
      * @return The predicate
      */
-    public static <T> @NotNull Predicate<T> always_true()
+    public static <T> @NotNull Predicate<T> alwaysTrue()
     {
         return x -> true;
     }
@@ -74,7 +74,7 @@ public class Predicates
      * @param <Y> The type of arguments to the specified predicate.
      * @return The predicate
      */
-    public static <X, Y> @NotNull PairPredicate<X, Y> pair_always_true()
+    public static <X, Y> @NotNull PairPredicate<X, Y> pairAlwaysTrue()
     {
         return (x, y) -> true;
     }
@@ -85,7 +85,7 @@ public class Predicates
      * @param <T> The type of arguments to the specified predicate.
      * @return The predicate
      */
-    public static <T> @NotNull Predicate<T> always_false()
+    public static <T> @NotNull Predicate<T> alwaysFalse()
     {
         return x -> false;
     }
@@ -97,7 +97,7 @@ public class Predicates
      * @param <Y> The type of arguments to the specified predicate.
      * @return The predicate
      */
-    public static <X, Y> @NotNull PairPredicate<X, Y> pair_always_false()
+    public static <X, Y> @NotNull PairPredicate<X, Y> pairAlwaysFalse()
     {
         return (x, y) -> false;
     }

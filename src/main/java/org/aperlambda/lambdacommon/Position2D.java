@@ -1,5 +1,5 @@
 /*
- * Copyright © 2019 LambdAurora <aurora42lambda@gmail.com>
+ * Copyright © 2020 LambdAurora <aurora42lambda@gmail.com>
  *
  * This file is part of λjcommon.
  *
@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Represents a position in a 2 dimensions coordinate system.
  *
- * @version 1.7.0
+ * @version 1.8.0
  * @see Position
  * @see Position3D
  */
@@ -43,38 +43,38 @@ public class Position2D implements Position
         this.y = y;
     }
 
-    public int get_x()
+    public int getX()
     {
         return x;
     }
 
-    public void set_x(int x)
+    public void setX(int x)
     {
         this.x = x;
     }
 
-    public int get_y()
+    public int getY()
     {
         return y;
     }
 
-    public void set_y(int y)
+    public void setY(int y)
     {
         this.y = y;
     }
 
     @Override
-    public int get_dimensions()
+    public int getDimensions()
     {
         return 2;
     }
 
     @NotNull
     @Override
-    public JsonObject to_json()
+    public JsonObject toJson()
     {
         JsonObject json = new JsonObject();
-        json.addProperty("dimension", get_dimensions());
+        json.addProperty("dimension", getDimensions());
         json.addProperty("x", x);
         json.addProperty("y", y);
         return json;

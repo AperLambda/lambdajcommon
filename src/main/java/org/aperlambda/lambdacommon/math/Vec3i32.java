@@ -1,5 +1,5 @@
 /*
- * Copyright © 2019 LambdAurora <aurora42lambda@gmail.com>
+ * Copyright © 2020 LambdAurora <aurora42lambda@gmail.com>
  *
  * This file is part of λjcommon.
  *
@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Represents a 3D vector
  *
- * @version 1.7.2
+ * @version 1.8.0
  * @since 1.7.2
  */
 public class Vec3i32 implements Comparable<Vec3i32>
@@ -52,7 +52,7 @@ public class Vec3i32 implements Comparable<Vec3i32>
      * @param b The other vector.
      * @return The scalar product.
      */
-    public int scalar_product(Vec3i32 b)
+    public int scalarProduct(Vec3i32 b)
     {
         return this.x * b.x + this.y * b.y + this.z * b.z;
     }
