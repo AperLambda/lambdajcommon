@@ -146,3 +146,7 @@ Maths!
 ## 1.8.0 - camelCase
 
  - Refactored everything to camelCase.
+ 
+## 1.8.1
+
+ - Refactored `Pair`, no longer require a non-null key.

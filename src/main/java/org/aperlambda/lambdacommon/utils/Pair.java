@@ -21,49 +21,49 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 /**
- * A container object which contain a key and may or may not contain a value.
+ * A container object which contains two values.
  *
- * @param <K> The type of the key.
- * @param <V> The type of the value.
- * @version 1.8.0
+ * @param <K> The type of the fist value.
+ * @param <V> The type of the second value.
+ * @version 1.8.1
  */
 public final class Pair<K, V> implements Serializable
 {
     /**
-     * Represents the key of this pair.
+     * Represents the first value of this pair.
      */
     public final K key;
     /**
-     * Represents the value of this pair.
+     * Represents the second value of this pair.
      */
     public final V value;
 
-    public Pair(@NotNull K key, V value)
+    public Pair(@Nullable K first, @Nullable V second)
     {
-        this.key = key;
-        this.value = value;
+        this.key = first;
+        this.value = second;
     }
 
     /**
-     * Creates a new pair from a key and a value.
+     * Creates a new pair from two values.
      *
-     * @param key   The key of the pair.
-     * @param value The value of the pair.
-     * @param <K>   The type of the key.
-     * @param <V>   The type of the value.
+     * @param first  The first value of the pair.
+     * @param second The second value of the pair.
+     * @param <K>    The type of the first value.
+     * @param <V>    The type of the second value.
      * @return The new pair.
      */
-    public static <K, V> Pair<K, V> of(@NotNull K key, @Nullable V value)
+    public static <K, V> Pair<K, V> of(@Nullable K first, @Nullable V second)
     {
-        return new Pair<>(key, value);
+        return new Pair<>(first, second);
     }
 
     /**
      * Creates a new pair from an Entry.
      *
      * @param entry The Entry.
-     * @param <K>   The key of the pair.
-     * @param <V>   The value of the pair.
+     * @param <K>   The type of the first value.
+     * @param <V>   The type of the second value.
      * @return A new pair.
      */
     public static <K, V> Pair<K, V> fromEntry(Map.Entry<K, V> entry)
@@ -75,8 +75,8 @@ public final class Pair<K, V> implements Serializable
      * Creates a new list of pair from a Map.
      *
      * @param map The Map.
-     * @param <K> The key of the pair.
-     * @param <V> The value of the pair.
+     * @param <K> The type of the key.
+     * @param <V> The type of the value.
      * @return A new pair's list.
      */
     public static <K, V> List<Pair<K, V>> newListFromMap(Map<K, V> map)
@@ -87,16 +87,35 @@ public final class Pair<K, V> implements Serializable
     }
 
     /**
+     * Returns the first value.
+     *
+     * @return The first value.
+     */
+    public K getFirst()
+    {
+        return this.key;
+    }
+
+    /**
+     * Returns the second value.
+     *
+     * @return The second value.
+     */
+    public V getSecond()
+    {
+        return this.value;
+    }
+
+    /**
      * If a value is present, apply the provided mapping function to it,
      * and if the result is non-null, return an {@code Optional} describing the
      * result.  Otherwise return an empty {@code Optional}.
      *
-     * @param <M>    The type of the key result of the mapping function.
-     * @param <N>    The type of the value result of the mapping function.
+     * @param <M>    The type of the first value result of the mapping function.
+     * @param <N>    The type of the second value result of the mapping function.
      * @param mapper A mapping function to apply to the value, if present.
-     * @return An {@code Optional} describing the result of applying a mapping
-     * function to the value of this {@code Optional}, if a value is present,
-     * otherwise an empty {@code Optional}.
+     * @return An {@code Pair} describing the result of applying a mapping
+     * function to the values of this {@code Pair}.
      * @throws NullPointerException If the mapping function is null.
      */
     @NotNull
@@ -112,18 +131,17 @@ public final class Pair<K, V> implements Serializable
      * result.  Otherwise return an empty {@code Optional}.
      *
      * @param <N>    The type of the result of the mapping function.
-     * @param mapper A mapping function to apply to the value, if present.
+     * @param mapper A mapping function to apply to the second value, if present.
      * @return An {@code Optional} describing the result of applying a mapping
      * function to the value of this {@code Optional}, if a value is present,
      * otherwise an empty {@code Optional}.
      * @throws NullPointerException If the mapping function is null.
      * @see Optional#map(Function)
      */
-    @NotNull
-    public <N> N mapValue(@NotNull Function<? super V, ? extends N> mapper)
+    public <N> @NotNull Optional<N> mapSecond(@NotNull Function<? super V, ? extends N> mapper)
     {
         Objects.requireNonNull(mapper);
-        return mapper.apply(value);
+        return this.value == null ? Optional.empty() : Optional.ofNullable(mapper.apply(this.value));
     }
 
     /**
@@ -159,7 +177,7 @@ public final class Pair<K, V> implements Serializable
     @Override
     public String toString()
     {
-        return "Pair{key: " + this.key + ", value: " + this.value + '}';
+        return "Pair{first: " + this.key + ", second: " + this.value + '}';
     }
 
     /**
@@ -171,16 +189,22 @@ public final class Pair<K, V> implements Serializable
         public JsonElement serialize(Pair<?, ?> src, Type typeOfSrc, JsonSerializationContext context)
         {
             JsonObject json = new JsonObject();
-            JsonObject key = new JsonObject();
-            key.addProperty("type", src.key.getClass().getName());
-            key.add("data", context.serialize(src.key));
-            json.add("key", key);
+            if (src.key != null) {
+                JsonObject jsonFirst = new JsonObject();
+                jsonFirst.addProperty("type", src.key.getClass().getName());
+                jsonFirst.add("data", context.serialize(src.key));
+                json.add("first", jsonFirst);
+            } else {
+                json.add("first", JsonNull.INSTANCE);
+            }
             Object value = src.value;
             if (value != null) {
-                JsonObject jsonValue = new JsonObject();
-                jsonValue.addProperty("type", value.getClass().getName());
-                jsonValue.add("data", context.serialize(value));
-                json.add("value", jsonValue);
+                JsonObject jsonSecond = new JsonObject();
+                jsonSecond.addProperty("type", value.getClass().getName());
+                jsonSecond.add("data", context.serialize(value));
+                json.add("second", jsonSecond);
+            } else {
+                json.add("second", JsonNull.INSTANCE);
             }
             return json;
         }
@@ -191,18 +215,19 @@ public final class Pair<K, V> implements Serializable
             if (!(json instanceof JsonObject))
                 throw new JsonParseException("Cannot parse Pair<?, ?>: the json must be an object!");
             JsonObject obj = (JsonObject) json;
-            if (!obj.has("key") || !obj.get("key").isJsonObject())
-                throw new JsonParseException("Key is not present or is malformed.");
-            JsonObject jsonKey = obj.getAsJsonObject("key");
+            Object key = null;
             try {
-                Class<?> type = Class.forName(jsonKey.get("type").getAsString());
-                Object key = context.deserialize(jsonKey.get("data"), type);
+                if (obj.has("first") && !obj.get("first").isJsonNull()) {
+                    JsonObject jsonFirst = obj.getAsJsonObject("first");
+                    Class<?> type = Class.forName(jsonFirst.get("type").getAsString());
+                    key = context.deserialize(jsonFirst.get("data"), type);
+                }
 
-                if (!obj.has("value"))
+                if (!obj.has("second") || obj.get("second").isJsonNull())
                     return Pair.of(key, null);
-                JsonObject jsonValue = obj.getAsJsonObject("value");
-                Class<?> valueType = Class.forName(jsonValue.get("type").getAsString());
-                Object value = context.deserialize(jsonValue.get("data"), valueType);
+                JsonObject jsonSecond = obj.getAsJsonObject("value");
+                Class<?> valueType = Class.forName(jsonSecond.get("type").getAsString());
+                Object value = context.deserialize(jsonSecond.get("data"), valueType);
                 return Pair.of(key, value);
             } catch (ClassNotFoundException e) {
                 throw new JsonParseException(e);

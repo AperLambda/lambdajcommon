@@ -25,12 +25,12 @@ import java.util.stream.Stream;
  * Represents a cache with a lifetime for the stored objects.
  *
  * @param <T> The typename of the stored objects.
- * @version 1.8.0
+ * @version 1.8.1
  * @since 1.5.0
  */
 public class TimedCache<K, T> implements Cache<K, T>
 {
-    private final Timer                       timer          = new Timer();
+    private final Timer                       timer         = new Timer();
     private final int                         lifetime;
     private final HashMap<K, CachedObject<T>> cachedObjects = new HashMap<>();
 
@@ -60,7 +60,7 @@ public class TimedCache<K, T> implements Cache<K, T>
     @Override
     public void update()
     {
-        List<K> removeQueue = stream().filter(o -> (o.value.getLastUsed() + this.lifetime * 1000) > System.currentTimeMillis()).map(p -> p.key).collect(Collectors.toList());
+        List<K> removeQueue = stream().filter(o -> (o.getSecond().getLastUsed() + this.lifetime * 1000) > System.currentTimeMillis()).map(Pair::getFirst).collect(Collectors.toList());
         removeQueue.forEach(this::remove);
     }
 
